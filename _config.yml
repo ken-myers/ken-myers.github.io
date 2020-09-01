@@ -1,0 +1,6 @@
+url: "https://ken-myers.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+title: "Ken Myers"
+description: "I sometimes do cool things."
+# sass:
+#   sass_dir: assets/css

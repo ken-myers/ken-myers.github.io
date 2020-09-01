@@ -1,0 +1,16 @@
+<nav id = "navBar" class="navbar">
+		<a class = "navbar-brand" href="{% if page.title == 'Home' %}#{% else %}/{% endif %}">
+			<div id="logo" class = "p-3">
+				<h3 id= "titleHead" class = "my-0">{{ site.title }}</h3>
+				<p id = "tagline" class = "my-0">{{ site.description }}</p>
+			</div>
+		</a>
+		<ul class = "nav">
+			{% for item in site.data.navbar %}
+				{% if item.name != page.title %}
+					<a class = "nav-link" href = "{{ item.link }}">{{ item.name }}</a>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</nav>

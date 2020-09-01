@@ -1,0 +1,25 @@
+---
+layout: default
+title: Home
+---
+
+<div class = "row my-5">
+	<h1 class = "px-2">Recent posts</h1>
+</div>
+{% for post in site.posts %}
+	{% assign imageSrc = "assets/images/" | append : post.image | relative_url %}
+	<div class = "row my-5">
+		<div class = "d-none d-md-inline col-10 mx-auto mb-4 col-md-4 col-xl-3">
+			<a href = "{{post.url}}"><img class = "previewImage img-fluid shadow-lg rounded" src="{{ imageSrc }}"></a>
+		</div>
+		<div class = "col-12 col-md-8 col-xl-9">
+			<h4>{% assign d = post.date | date: "%-d"  %}{{ post.date | date: "%B" }} {% case d %}{% when '1' or '21' or '31' %}{{ d }}st{% when '2' or '22' %}{{ d }}nd{% when '3' or '23' %}{{ d }}rd{% else %}{{ d }}th{% endcase %}, {{ post.date | date: "%Y" }}
+			</h4>
+			<a class = "titleLink" href = "{{post.url}}"><h2>{{ post.title }}</h2></a>
+			<div class = "p-5 d-md-none">
+				<a href = "{{post.url}}"><img class = "previewImage img-fluid shadow-lg rounded" src="{{ imageSrc }}"></a>
+			</div>
+			<p>{{ post.preview }}</p>
+		</div>
+	</div>
+{% endfor %}

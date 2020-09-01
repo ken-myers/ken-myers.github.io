@@ -1,0 +1,9 @@
+<div class = "col-{{ include.colSize | times: 2 | at_most: 12}} col-md-{{ include.colSize }} mx-auto my-5">
+	<figure class="figure">
+		{% assign imageSrc = "assets/images/" | append: include.fileName | relative_url %}
+		<img src="{{ imageSrc }}" class="figure-img img-fluid rounded align-self-center"{% if include.imgStyle %} style="{{include.imgStyle}}"{% endif %}>
+		{% if include.caption %}
+			<figcaption class="figure-caption text-center">{{ include.caption }}</figcaption>
+		{% endif %}
+	</figure>
+</div>
