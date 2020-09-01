@@ -1,7 +1,13 @@
-<div class = "col-{{ include.colSize | times: 2 | at_most: 12}} col-md-{{ include.colSize }} mx-auto my-5">
-	<figure class="figure">
+<div class = "col-{{ include.colSize | times: 2 | at_most: 12}} col-md-{{ include.colSize }} mx-auto my-5 text-center"{% if include.colStyle %} style="{{include.colStyle}}"{% endif %}>
+	<figure class="figure" style="max-width: 100%;">
 		{% assign imageSrc = "assets/images/" | append: include.fileName | relative_url %}
+		{% if include.divStyle %}
+			<div style="{{ include.divStyle }}">
+			<img src="{{ imageSrc }}" class="figure-img img-fluid rounded align-self-center"{% if include.imgStyle %} style="{{include.imgStyle}}"{% endif %}>
+			</div>
+		{% else %}
 		<img src="{{ imageSrc }}" class="figure-img img-fluid rounded align-self-center"{% if include.imgStyle %} style="{{include.imgStyle}}"{% endif %}>
+		{% endif %}
 		{% if include.caption %}
 			<figcaption class="figure-caption text-center">{{ include.caption }}</figcaption>
 		{% endif %}

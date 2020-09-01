@@ -1,42 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <title>Stellar Cartography With Self Organizing Maps - Ken Myers</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
-  </head>
-  <body>
-  	<nav id = "navBar" class="navbar">
-		<a class = "navbar-brand" href="/">
-			<div id="logo" class = "p-3">
-				<h3 id= "titleHead" class = "my-0">Ken Myers</h3>
-				<p id = "tagline" class = "my-0">I sometimes do cool things.</p>
-			</div>
-		</a>
-		<ul class = "nav">
-			
-				
-					<a class = "nav-link" href = "/">Home</a>
-				
-			
-				
-					<a class = "nav-link" href = "/about">About Me</a>
-				
-			
-		</ul>
-	</div>
-</nav>
-  	<div class = "container my-5">
-    	<h4>
-	September 1st, 2020
-</h4>
-
-<h1>Stellar Cartography With Self Organizing Maps</h1>
-
-<h5 class = "h5"><i>A bored high-schooler's foray into astronomy, because what else am I supposed to do during quarantine?</i></h5>
-
-<div class="col-12 col-md-9 mx-auto my-5 text-center">
+I"U<div class="col-12 col-md-9 mx-auto my-5 text-center">
 	<figure class="figure" style="max-width: 100%;">
 		
 		
@@ -99,7 +61,7 @@
 		
 		
 			<div style="overflow:auto;">
-			<img src="/assets/images/linearCities.png" class="figure-img img-fluid rounded align-self-center" style="max-width:none;" />
+			<img src="/assets/images/linearCities.png" class="figure-img img-fluid rounded align-self-center" style="min-height:10px10px;max-width:none;height:8vh;" />
 			</div>
 		
 		
@@ -164,7 +126,4 @@
 <p>Even though the code is capable, there’s not much use in stepping down higher-dimensional data to one, two, or three dimensions because, since it is primarily intended to be used as a cartography tool, my program does not normalize the data you feed it, and uniform higher dimensional coordinates are hard to come by. (If you were, say, a novelist trying to world-build a universe in which there were seven spacial dimensions, then yes, it could be useful.)</p>
 
 <p>I intend to continue working on this project. Besides the obvious refactoring, bug-squashing, and polishing, I’d also like to add support for wrap-around/toroidal space, and perhaps globular.</p>
-
-	</div>
-  </body>
-</html>
+:ET

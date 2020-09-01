@@ -6,7 +6,7 @@ preview: "There was something of a family debate over whether a reduced-dimensio
 image: "starmapPretty.png"
 ---
 
-{% include image.html fileName = "starmapPretty.png" colSize = 9 %}
+{% include image.html fileName = "starmapPretty.png" colSize = 9 caption = "A distance optimized map of the 10 closest stars to Earth, Sol included. This one has an average error of around 8.9% "%}
 
 There was something of a family debate over whether a reduced-dimensionality starmap could still be accurate enough as to be useful, so I made a covid-quarantine experiment of it. 
 
@@ -29,22 +29,20 @@ I tried to implement something like a [Kohonen map](https://en.wikipedia.org/wik
 		- Decrease the increment size if the results will still be significant, or otherwise
 		- Stop. The map's error has converged.
 
-A few nuances have been glossed over in this overview. You can view the full code here on my Github.
+A few nuances have been glossed over in this overview. You can view the full code on my Github.
 
 ## Results
 
 One of the principal arguments against the usability of these maps was that "it's like putting cities in a line." I made sure to generalize my code for data of any dimension and fed it the largest 20 cities in Texas. If you're from around here, I think you'd agree with me that this map seems like it would be of aid to any one-dimensional creatures attempting to traverse the state.
 
-{% include image.html fileName = "linearCities.png" colSize = 12 caption = "The 20 largest cities in Texas plotted linearly, optimized for distance. (The Metroplex is a bit clustered, as expected.)"%}
+{% include hScroller.html fileName = "linearCities.png" height = "auto" colSize = 12 caption = "The 20 largest cities in Texas plotted linearly, optimized for distance. (The Metroplex is a bit clustered, as expected.)" %}
 
-Here are a few more maps I've generated, without any post-processing. (You may want to open those last two in a new tab.) 
+Here are a few more maps I've generated, without any post-processing. (You can click on any of these to view them in more detail.) 
 
-<div class = "row">
-		{% include image.html fileName = "starmap10.png" colSize = 6 caption = "10 nearest stars. Average error of about 8.88%" %}
-		{% include image.html fileName = "starmap20.png" colSize = 6 caption = "20 nearest stars. Average error of about 13.2%" %}
-		{% include image.html fileName = "starmap50.png" colSize = 6 caption = "50 nearest stars. Average error of about 16.4%" %}
-		{% include image.html fileName = "starmap100.png" colSize = 6 caption = "100 nearest stars. Average error of about 16.0%" %}
-</div>
+{% include image.html fileName = "starmap10.png" colSize = 12 caption = "10 nearest stars. Average error of about 8.88%" %}
+{% include image.html fileName = "starmap20.png" colSize = 12 caption = "20 nearest stars. Average error of about 13.2%" %}
+{% include image.html fileName = "starmap50.png" colSize = 12 caption = "50 nearest stars. Average error of about 16.4%" %}
+{% include image.html fileName = "starmap100.png" colSize = 12 caption = "100 nearest stars. Average error of about 16.0%" %}
 
 As for the error indication, the blue lines represent specific distances that are over a user-inputted threshold (in this case, 85%), the text simply lists the average error of all distances involving the given star, and the red halos are proportional to said error. All of this is toggle-able.
 
