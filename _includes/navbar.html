@@ -5,7 +5,7 @@
 				<p id = "tagline" class = "my-0">{{ site.description }}</p>
 			</div>
 		</a>
-		<ul class = "nav">
+		<ul class = "mx-auto mx-sm-0 nav float-none float-sm-right">
 			{% for item in site.data.navbar %}
 				{% if item.name != page.title %}
 					<a class = "nav-link" href = "{{ item.link }}">{{ item.name }}</a>
