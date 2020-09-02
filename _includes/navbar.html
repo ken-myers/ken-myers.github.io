@@ -7,11 +7,13 @@
 			</div>
 		</a>
 	</div>
-	<div class = "col-6 mx-auto mx-sm-0">
-		<ul class = "mx-auto mx-sm-0 float-none float-sm-right nav">
+	<div class = "col-12 col-sm-6 mx-auto mx-sm-0 text-center">
+		<ul class = "float-none float-sm-right nav d-flex justify-content-center">
 			{% for item in site.data.navbar %}
 				{% if item.name != page.title %}
-					<a class = "nav-link" href = "{{ item.link }}">{{ item.name }}</a>
+					<li>
+						<a class = "nav-link" href = "{{ item.link }}">{{ item.name }}</a>
+					</li>
 				{% endif %}
 			{% endfor %}
 		</ul>
