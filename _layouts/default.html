@@ -4,12 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>{{ page.title }} - {{ site.title }}</title>
-    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+    <link rel="stylesheet" href="/assets/css/main.css">
   </head>
   <body>
   	{% include navbar.html %}
-  	<div class = "container my-5">
+    {% include modal.html %}
+  	<div class = "container my-5" style = "padding-right:0.4vw;">
     	{{ content }}
-	</div>
+	  </div>
+  <script src="/assets/js/jquery-3.5.1.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/main.js"></script>
   </body>
 </html>

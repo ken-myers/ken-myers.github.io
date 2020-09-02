@@ -1,49 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <title>Stellar Cartography With Self Organizing Maps - Ken Myers</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
-  </head>
-  <body>
-  	<nav id = "navBar" class="navbar">
-	<div class = "col-12 col-sm-6">
-		<a class = "navbar-brand" href="/">
-			<div id="logo" class = "p-3">
-				<h3 id= "titleHead" class = "my-0">Ken Myers</h3>
-				<p id = "tagline" class = "my-0">I sometimes do cool things.</p>
-			</div>
-		</a>
-	</div>
-	<div class = "col-6 mx-auto mx-sm-0">
-		<ul class = "mx-auto mx-sm-0 float-none float-sm-right nav">
-			
-				
-					<a class = "nav-link" href = "/">Home</a>
-				
-			
-				
-					<a class = "nav-link" href = "/about">About Me</a>
-				
-			
-		</ul>
-	</div>
-</nav>
-    <div id = "imageModal">
-	<img id = "modalImage">
-</div>
-
-  	<div class = "container my-5" style = "padding-right:0.4vw;">
-    	<h4>
-	September 1st, 2020
-</h4>
-
-<h1>Stellar Cartography With Self Organizing Maps</h1>
-
-<h5 class = "h5"><i>A bored high-schooler's foray into astronomy, because what else am I supposed to do during quarantine?</i></h5>
-
-
+I"�
 <div class="col-12 col-md-9 mx-auto my-5 text-center">
 	<figure class="figure" style="max-width: 100%;">
 		
@@ -199,20 +154,4 @@
 <p>Even though the code is capable, there’s not much use in stepping down higher-dimensional data to one, two, or three dimensions because, since it is primarily intended to be used as a cartography tool, my program does not normalize the data you feed it, and uniform higher dimensional coordinates are hard to come by. (If you were, say, a novelist trying to world-build a universe in which there were seven spacial dimensions, then yes, it could be useful.)</p>
 
 <p>I intend to continue working on this project. Besides the obvious refactoring, bug-squashing, and polishing, I’d also like to add support for wrap-around/toroidal space, and perhaps globular.</p>
-
-
-<div id="imageModal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-body">
-            <img id = "modalImg" src="" class="img-fluid">
-        </div>
-    </div>
-  </div>
-</div>
-	  </div>
-  <script src="/assets/js/jquery-3.5.1.min.js"></script>
-  <script src="/assets/js/bootstrap.min.js"></script>
-  <script src="/assets/js/main.js"></script>
-  </body>
-</html>
+:ET

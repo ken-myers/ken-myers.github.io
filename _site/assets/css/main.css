@@ -1,5 +1,5 @@
 /*! Bootstrap v4.0.0 (https://getbootstrap.com) Copyright 2011-2018 The Bootstrap Authors Copyright 2011-2018 Twitter, Inc. Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */
-@import url(//fonts.googleapis.com/css2?family=Merriweather&display=swap);
+@import url("//fonts.googleapis.com/css2?family=Merriweather&display=swap");
 :root { --blue: #007bff; --indigo: #6610f2; --purple: #6f42c1; --pink: #e83e8c; --red: #dc3545; --orange: #fd7e14; --yellow: #ffc107; --green: #28a745; --teal: #20c997; --cyan: #17a2b8; --white: #fff; --gray: #6c757d; --gray-dark: #343a40; --primary: #007bff; --secondary: #6c757d; --success: #28a745; --info: #17a2b8; --warning: #ffc107; --danger: #dc3545; --light: #f8f9fa; --dark: #343a40; --breakpoint-xs: 0; --breakpoint-sm: 576px; --breakpoint-md: 768px; --breakpoint-lg: 992px; --breakpoint-xl: 1200px; --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -2074,5 +2074,9 @@ a:hover, .nav-link:hover { text-decoration: underline; }
 .titleLink { color: #383838; }
 
 .titleLink:hover { color: #383838; }
+
+#imageModal { display: none; /* Hidden by default */ position: fixed; /* Stay in place */ z-index: 1; /* Sit on top */ left: 0; top: 0; width: 100%; /* Full width */ height: 100%; /* Full height */ background-color: black; /* Fallback color */ background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */ }
+
+#modalImage { max-height: 80%; max-width: 90%; width: auto; height: auto; position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
 /*# sourceMappingURL=main.css.map */
