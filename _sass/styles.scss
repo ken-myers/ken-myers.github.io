@@ -27,7 +27,7 @@ body {
 	color:#ebebeb;
 }
 
-a, .nav-link{
+a, .nav-link, #modalTabLink{
 	&:hover{
 		text-decoration: underline;
 	}
@@ -44,23 +44,22 @@ a, .nav-link{
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
-	// padding-top: 100px; 
 	left: 0;
 	top: 0;
 	width: 100%; /* Full width */
 	height: 100%; /* Full height */
-	// overflow: auto; 
 	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.9); /* Black w/ opacity */;
+	background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+	align-items: center;
+	flex-direction: column;
+  	justify-content: center;
+
+}
+#modalImage {
+	max-height: 80%;
+	max-width: 90%;
 }
 
-#modalImage {
-  max-height: 80%;
-  max-width: 90%;
-  width:auto;
-  height: auto;
-  position:relative;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
+#modalTabLink{
+	color:#9c9c9c;
 }

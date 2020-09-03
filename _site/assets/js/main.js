@@ -3,9 +3,10 @@ $(document).ready(function() {
 	$(".modalLink").on("click", function() {
 		var imgSrc = $(this).attr("src");
 	   	$('#modalImage').attr('src', imgSrc);
+	   	$('#modalTabLink').attr('href', imgSrc);
 	   	$('body').css('overflow', 'hidden');
-	   	$('body').css('padding-right','+='+scrollWidth)
-		$('#imageModal').css('display','block');
+	   	$('body').css('padding-right','+='+scrollWidth);
+		$('#imageModal').css('display','inline-flex');
 	});
 
 	$("#imageModal").on("click",function(e){
