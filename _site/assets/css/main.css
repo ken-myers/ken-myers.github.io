@@ -2075,6 +2075,8 @@ a:hover, .nav-link:hover, #modalTabLink:hover { text-decoration: underline; }
 
 .titleLink:hover { color: #383838; }
 
+.modalLink { cursor: pointer; }
+
 #imageModal { display: none; /* Hidden by default */ position: fixed; /* Stay in place */ z-index: 1; /* Sit on top */ left: 0; top: 0; width: 100%; /* Full width */ height: 100%; /* Full height */ background-color: black; /* Fallback color */ background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */ align-items: center; flex-direction: column; justify-content: center; }
 
 #modalImage { max-height: 80%; max-width: 90%; }

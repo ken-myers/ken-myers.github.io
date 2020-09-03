@@ -6,7 +6,7 @@ preview: "There was something of a family debate over whether a reduced-dimensio
 image: "starmapPretty.png"
 ---
 
-{% include image.html fileName = "starmapPretty.png" colSize = 9 caption = "A distance optimized map of the 10 closest stars to Earth, Sol included. This one has an average error of around 8.9% "%}
+{% include image.html fileName = "starmapPretty.png" colSize = 9 caption = "Distance optimized map of the 10 closest stars to Earth, Sol included. This one has an average error of around 8.9% "%}
 
 There was something of a family debate over whether a reduced-dimensionality starmap could still be accurate enough as to be useful, so I made a covid-quarantine experiment of it. 
 
@@ -38,6 +38,7 @@ One of the principal arguments against the usability of these maps was that "it'
 {% include hScroller.html fileName = "linearCities.png" colSize = 12 caption = "The 20 largest cities in Texas plotted linearly, optimized for distance. (The Metroplex is a bit clustered, as expected.)" %}
 
 Here are a few more maps I've generated, without any post-processing. (You can click on any of these to view them in more detail.) 
+
 <div class = "row">
 {% include image.html fileName = "starmap10.png" colSize = 3 caption = "10 nearest stars. Average error of about 8.88%" %}
 {% include image.html fileName = "starmap20.png" colSize = 3 caption = "20 nearest stars. Average error of about 13.2%" %}

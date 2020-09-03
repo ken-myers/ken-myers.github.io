@@ -40,6 +40,10 @@ a, .nav-link, #modalTabLink{
 	color:#383838;
 }
 
+.modalLink{
+	cursor: pointer;
+}
+
 #imageModal{
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
