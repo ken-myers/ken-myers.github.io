@@ -1,4 +1,5 @@
 @import url('//fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import "bootstrap/_variables";
 
 body {
 	font-family: 'Merriweather', serif;
@@ -66,4 +67,13 @@ a, .nav-link, #modalTabLink{
 
 #modalTabLink{
 	color:#9c9c9c;
+}
+
+@media(max-width: map-get($grid-breakpoints,"sm")) {
+  .postTitle {
+    font-size: $h2-font-size;
+  }
+  .postTagline{
+  	font-size: 1.1* $h6-font-size;
+  }
 }

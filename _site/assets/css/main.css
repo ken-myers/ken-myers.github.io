@@ -2083,4 +2083,6 @@ a:hover, .nav-link:hover, #modalTabLink:hover { text-decoration: underline; }
 
 #modalTabLink { color: #9c9c9c; }
 
+@media (max-width: 576px) { .postTitle { font-size: 2rem; } .postTagline { font-size: 1.1rem; } }
+
 /*# sourceMappingURL=main.css.map */
