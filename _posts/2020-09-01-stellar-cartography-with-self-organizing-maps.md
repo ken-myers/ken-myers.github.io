@@ -37,7 +37,7 @@ One of the principal arguments against the usability of these maps was that "it'
 
 {% include hScroller.html fileName = "linearCities.png" colSize = 12 caption = "The 20 largest cities in Texas plotted linearly, optimized for distance. (The Metroplex is a bit clustered, as expected.)" %}
 
-Here are a few more maps I've generated, without any post-processing. (You can click on any of these to view them in more detail.) 
+Here are a few of the starmaps I've generated, without any post-processing. (You can click on any of these to view them in more detail.) 
 
 <div class = "row">
 {% include image.html fileName = "starmap10.png" colSize = 3 caption = "10 nearest stars. Average error of about 8.88%" %}

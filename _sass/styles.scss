@@ -40,7 +40,7 @@ a, .nav-link, #modalTabLink{
 	color:#383838;
 }
 
-.modalLink{
+.modalLink, #closeModal{
 	cursor: pointer;
 }
 
@@ -57,8 +57,8 @@ a, .nav-link, #modalTabLink{
 	align-items: center;
 	flex-direction: column;
   	justify-content: center;
-
 }
+
 #modalImage {
 	max-height: 80%;
 	max-width: 90%;

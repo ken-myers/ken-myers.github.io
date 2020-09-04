@@ -1,4 +1,4 @@
-I"Ñ
+I"Ö
 <div class="col-12 col-md-9 mx-auto my-5 text-center">
 	<figure class="figure" style="max-width: 100%;">
 		
@@ -9,7 +9,7 @@
 			<img src="/assets/images/starmapPretty.png" class="figure-img img-fluid rounded align-self-center modalLink" />
 		
 		
-			<figcaption class="figure-caption text-center">A distance optimized map of the 10 closest stars to Earth, Sol included. This one has an average error of around 8.9% </figcaption>
+			<figcaption class="figure-caption text-center">Distance optimized map of the 10 closest stars to Earth, Sol included. This one has an average error of around 8.9% </figcaption>
 		
 	</figure>
 </div>
@@ -78,7 +78,8 @@
 	</figure>
 </div>
 
-<p>Here are a few more maps Iâ€™ve generated, without any post-processing. (You can click on any of these to view them in more detail.)</p>
+<p>Here are a few of the starmaps Iâ€™ve generated, without any post-processing. (You can click on any of these to view them in more detail.)</p>
+
 <div class="row">
 
 
