@@ -37,7 +37,7 @@ One of the principal arguments against the usability of these maps was that "it'
 
 {% include hScroller.html fileName = "linearCities.png" colSize = 12 caption = "The 20 largest cities in Texas plotted linearly, optimized for distance. (The Metroplex is a bit clustered, as expected.)" %}
 
-Here are a few of the starmaps I've generated, without any post-processing. (You can click on any of these to view them in more detail.) 
+Here are a few more of the starmaps I've generated, without any post-processing. (You can click on any of these to view them in more detail.) 
 
 <div class = "row">
 {% include image.html fileName = "starmap10.png" colSize = 3 caption = "10 nearest stars. Average error of about 8.88%" %}
@@ -45,7 +45,7 @@ Here are a few of the starmaps I've generated, without any post-processing. (You
 {% include image.html fileName = "starmap50.png" colSize = 3 caption = "50 nearest stars. Average error of about 16.4%" %}
 {% include image.html fileName = "starmap100.png" colSize = 3 caption = "100 nearest stars. Average error of about 16.0%" %}
 </div>
-As for the error indication, the blue lines represent specific distances that are over a user-inputted threshold (in this case, 85%), the text simply lists the average error of all distances involving the given star, and the red halos are proportional to said error. All of this is toggle-able.
+As for the error indication, the blue lines represent specific distances that are over a user-inputted threshold (in this case, 85%), the red text simply lists the average error of all distances involving the given star, and the red halos are proportional to said error. All of this is toggle-able.
 
 Something to note is that these maps are quite sensitive to initial conditions, so you may have to re-roll a few times until you get a map you're happy with. In my experience, the average map error for a given dataset could fall anywhere between 10-30%, but I'm sure this number changes when you're working with something other than stars or cities. 
 
