@@ -33,7 +33,7 @@ A few nuances have been glossed over in this overview. You can view the full cod
 
 ## Results
 
-One of the principal arguments against the usability of these maps was that "it's like putting cities in a line." I made sure to generalize my code for data of any dimension and fed it the largest 20 cities in Texas. If you're from around here, I think you'd agree with me that this map look like it'd be helpful to any one-dimensional creatures attempting to traverse the state.
+One of the principal arguments against the usability of these maps was that "it's like putting cities in a line." I made sure to generalize my code for data of any dimension and fed it the largest 20 cities in Texas. If you're from around here, I think you'd agree with me that this map looks like it'd be helpful to any one-dimensional creatures attempting to traverse the state.
 
 {% include hScroller.html fileName = "linearCities.png" colSize = 12 caption = "The 20 largest cities in Texas plotted linearly, optimized for distance. (The Metroplex is a bit clustered, as expected.)" %}
 
@@ -51,6 +51,6 @@ Something to note is that these maps are quite sensitive to initial conditions, 
 
 ## Beyond Starmaps
 
-Even though the code is capable, there's not much use in stepping down higher-dimensional data to one, two, or three dimensions because, since it is primarily intended to be used as a cartography tool, my program does not normalize the data you feed it, and uniform higher dimensional coordinates are hard to come by. (If you were, say, a novelist trying to world-build a universe in which there were seven spacial dimensions, then yes, it could be useful.) 
+Even though the code is capable, there's not much use in stepping down higher-dimensional data to one, two, or three dimensions because, since it is primarily intended to be used as a cartography tool, my program does not normalize the data you feed it, and uniform higher dimensional coordinates are hard to come by. (If you were, say, a novelist trying to world-build a universe in which there were seven spatial dimensions, then yes, it could be useful.) 
 
 I intend to continue working on this project. Besides the obvious refactoring, bug-squashing, and polishing, I'd also like to add support for wrap-around/toroidal space and perhaps globular, a GUI that shows live generation (like the GIF you saw earlier), and the ability to import CSV files. 
