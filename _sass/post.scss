@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import "constants";
+
+.postInfo, #postContent{
+    font-family: Merriweather, serif;
+    h2{
+        font-size:32px;
+    }
+    h1{
+        font-size: 40px;
+    }
+
+    h4{
+        font-size: 24px;
+    }
+
+    h1, h2, h3, h4, h5{
+        font-weight: 500;
+        text-align: left;
+    }
+
+    a{
+        color: #007bff;
+        text-decoration: none;
+        &:hover{
+            cursor: pointer;
+            text-decoration: underline;
+            color: #0056b3;
+        }
+    }
+}
+
+.postDate{
+    margin-bottom: 0;
+}
+.postTitle{
+    margin-top: 0.3em;
+}
+
+.postImage{
+    border-radius: 5px;
+    max-width: 100%;
+}
+
+.imgCont{
+    text-align: center;
+    margin: 4em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .imgCaption{
+        display: block;
+        margin: 0.5em auto;
+        max-width: 95%;
+        font-size: 14px;
+    }
+}
+
+.scrollWrapper{
+    display: block;
+    width: 100%;
+    overflow-x: scroll;
+    img{
+        max-width: none;
+    }
+}
+
+.clickToModal{
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.flexrow{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2.5em 0;
+
+    &.flexrow4{
+        .imgCont{
+
+            flex-basis:23%;
+            margin: 1.5em 0;
+            // padding: 0 1.5em;
+
+            @media only screen and (max-width: $breakpoint-medium){
+                flex-basis: 48%;  
+            }
+            @media only screen and (max-width: $breakpoint-xsmall){
+                flex-basis: 100%;  
+            }
+
+            
+        }
+    }
+
+}

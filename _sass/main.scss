@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+
+a{
+    color:black;
+}
+
+body{
+    padding:0;
+    margin-left: 17px;
+    margin-right: 17px;
+    margin-top: 15px;
+    font-family: 'IBM Plex Mono', monospace;
+
+}
+
+#titleWrapper{
+    margin-top: 24px;
+    text-align: center;
+}
+
+#titleHeader{
+    font-weight: 500;
+}
+
+// #postListings{
+//     width: 70%;
+//     max-width: 750px;
+//     margin-right:auto;
+//     margin-left: auto;
+// }
+
+#content{
+    width: 100%;
+    text-align: justify;
+    margin: 0 auto;
+}
+
+.postListing{
+    text-align: left;
+    display:flex;
+
+    &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.listingDate{
+    margin-left: auto;
+    padding-left: 1.5em;
+}
+
+.listingNumber{
+    margin-right: 7px;
+}
+
+
+#notFoundContainer{
+    text-align: center;
+}
+
+.listingLink{
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}

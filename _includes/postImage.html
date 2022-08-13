@@ -1,0 +1,13 @@
+<div class = "imgCont" >
+    {% if include.scrollable %}
+    <div class = "scrollWrapper">
+    {% endif%}
+        <img {% if include.imgID %} id = "{{ include.imgID }}"{% endif %} {% if include.imgName %}src="/assets/images/{{include.imgName}}"{% else %}src = "{{ include.src }}"{% endif %} class = "{% unless include.noModal %}clickToModal {% endunless %}postImage" style="{% if include.width %}width:{{include.width}};{% endif %}{% if include.height %} height:{{include.height}};{%endif%}">
+        {% if include.scrollable%}
+    </div>
+    {% endif %}
+        {% if include.caption %}
+        <p class = "imgCaption" {% if include.width %}style="width:{{include.width}};"{% endif %}>{{ include.caption }}</p>
+    {% endif %}
+ 
+</div>
