@@ -1,0 +1,8 @@
+<div class = "vidCont">
+    <video {% if include.vidID %} id = "{{ include.vidID }}" {% endif %} class = "postVid" style="{% if include.width %}width:{{include.width}};{% endif %}{% if include.height %} height:{{include.height}};{%endif%}" controls>
+        <source {% if include.vidName %}src="/assets/videos/{{include.vidName}}"{% else %}src = "{{ include.src }}"{% endif %} type = "video/{{include.fileType}}" ></source>
+    </video>
+    {% if include.caption %}
+        <p class = "vidCaption" {% if include.width %}style="width:{{include.width}};"{% endif %}>{{ include.caption }}</p>
+    {% endif %}
+</div>
