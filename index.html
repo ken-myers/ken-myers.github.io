@@ -5,7 +5,8 @@ width: 750
 ---
 
 <div id="postListings">
-    {% for post in site.posts %}
+    {% assign cronPosts = site.posts | reverse %}
+    {% for post in cronPosts %}
         <a class = "listingLink" href = "{{ post.url }}">
             <div class="postListing">
                         <span class = "listingNumber"> {{ forloop.index }}.</span>
