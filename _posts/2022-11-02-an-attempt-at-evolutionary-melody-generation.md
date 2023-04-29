@@ -54,7 +54,7 @@ Each generation comprises all permutations of winning genomes, N mutants (five, 
 A webapp lets multiple users vote on brackets at the same (or not same) time. This made sense for this project since multiple users means faster generation cycles and less bias.
 
 
-#### API
+### API
 
 The API is written in Python with Flask, hosted on Heroku alongside a PostgreSQL database for bracket data, and has two endpoints: one to request a pair to vote on, and one to cast a vote. 
 
@@ -62,15 +62,15 @@ The first takes GET requests with no arguments and yields two base64-encoded MID
 
 The second takes POST requests with arguments for the pair and loser's identifiers, and eliminates the loser from the bracket. If the pair was the last of a bracket tier, new pairs are generated for the next tier. If the pair was the last of the entire bracket, a new bracket is generated from the top organisms as described above.
 
-#### UI
+### UI
 
 {% include postImage.html imgName = "melodyUI.png" caption = "A still of the UI" width = "800px" %}
 
 The UI is written in plain HTML, CSS, and JavaScript. It is minimalistically designed with graphics I made myself. A random background color is selected and a pair fetched on page load. There are buttons to hear and select each song, cast your vote, and that's about it.
 
-You can view the source for the UI [here](https://kenmyers.io/melodyfarm/) and a demo [here](https://github.com/ken-myers/melodyfarm).
+You can view the source for the UI [here](https://github.com/ken-myers/melodyfarm) and a demo [here](https://kenmyers.io/melodyfarm/).
 
 
-# Results
+## Results
 
 The app was a success in that it functions without error and correctly implements the algorithms described above. The algorithm itself, however, is naive---so far, the melodies do not appear to be growing any more pleasant, nor my methods of genetic recombination to yield organisms similar to their two parents for that matter. I am interested to see what would come of this idea if it used something like Magenta's [MusicVAE](https://magenta.tensorflow.org/music-vae) to represent melodies in a [latent space](https://towardsdatascience.com/understanding-latent-space-in-machine-learning-de5a7c687d8d), where operations performed on melodies have more intuitive results.
