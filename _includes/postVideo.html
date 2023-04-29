@@ -1,5 +1,5 @@
 <div class = "vidCont">
-    <video {% if include.vidID %} id = "{{ include.vidID }}" {% endif %} class = "postVid" style="{% if include.width %}width:{{include.width}};{% endif %}{% if include.height %} height:{{include.height}};{%endif%}" controls autoplay="false" play-inline>
+    <video {% if include.vidID %} id = "{{ include.vidID }}" {% endif %} class = "postVid" style="{% if include.width %}width:{{include.width}};{% endif %}{% if include.height %} height:{{include.height}};{%endif%}" controls play-inline>
         <source {% if include.vidName %}src="/assets/videos/{{include.vidName}}"{% else %}src = "{{ include.src }}"{% endif %} type = "video/{{include.fileType}}" ></source>
     </video>
     {% if include.caption %}
