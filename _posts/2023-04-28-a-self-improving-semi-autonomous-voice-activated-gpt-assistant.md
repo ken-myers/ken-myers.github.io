@@ -74,7 +74,7 @@ In a system message, I tell GPT-4 that it is "Alex, a speech-enabled assistant a
 <end-of-response /> - End your message (mandatory)
 ```
 
-Right now these are hardcoded in, but I plan soon to construct this boiler on startup based on the condigured interfaces and their associated tags.
+Right now these are hardcoded in, but I plan soon to construct this boiler on startup based on the configured interfaces and their associated tags.
 
 I then let it know what commands it has access to, give it a few more guidelines, examples, and start giving it user input. 
 
