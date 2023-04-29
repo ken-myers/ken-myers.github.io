@@ -41,11 +41,11 @@ It also implemented for itself:
 - A Gmail address; the bot checks the inbox periodically and responds to any new mail.
 - A Telegram bot; the bot uses long polling (its idea) and responds to messages pretty much instantaneously.
 
-The bot is decently capable of stringing these together to get things done but it does sometimes need a little encouragement. It could "email my brother's school calling in sick for him" without intervention, but not "create a to-do list app in Angular with Auth0" (yet).
+The bot is decently capable of stringing these together to get things done, but it does sometimes need a little encouragement. It could "email my brother's school calling in sick for him" without intervention, but not "create a to-do list app in Angular with Auth0" (yet).
 
 <div class = "small-print" markdown="1">
 <br>
-\**I had to fix some issues with the Spotify implementation myself. The library it chose was prompting for user input, which was not being fed back to the bot. I feel like this more on me and that the bot did fine with what it was given.*
+\**I had to fix some issues with the Spotify implementation myself---the library it chose was prompting for user input in stdout, which was not being fed back to the bot. I feel like this more on me and that the bot did fine with what it was given.*
 
 \***I implemented helper functions `save_secret` and `get_secret`, but the bot wrote the code to prompt the user for secrets and pass them to said helpers.*
 
@@ -74,7 +74,7 @@ In a system message, I tell GPT-4 that it is "Alex, a speech-enabled assistant a
 <end-of-response /> - End your message (mandatory)
 ```
 
-Right now these are hardcoded in, but I plan to construct this boiler on startup from from the tags associated with the configured interfaces.
+Right now these are hardcoded in, but I plan soon to construct this boiler on startup based on the condigured interfaces and their associated tags.
 
 I then let it know what commands it has access to, give it a few more guidelines, examples, and start giving it user input. 
 
@@ -82,15 +82,15 @@ I then let it know what commands it has access to, give it a few more guidelines
 
 I've tried my best not to build a monolith. The system is broken into specialized components. I've built six so far, which can be mixed and matched with no problem.
 - Brain: Formats input and feeds it to GPT, pipes output to other components
-- Listener: Listens for wake words, processes speech, and sends it to the brain as input
+- Listener: Listens for wake words, processes speech, and sends transcriptions to the brain as input
 - Executor: Manages and executes commands. Also synthesizes speech (yes, this does need to be separated into two components)
 - Scheduler: Handles creation, deletion, and execution of scheduled commands
-- Recaller: Prepends all input with relevant "memories" retrieved from vectorized historical chatlog.
+- Recaller: Prepends all input with relevant "memories" retrieved from vectorized historical chatlog
 - Terminal: The earlier-mentioned Tkinter interface that facilitates text-based I/O
 
-Components are effectively arranged in a loop (interfaces -> afferent components -> brain -> efferent components -> interfaces -> etc.) by a Mediator, which facilitates inter-component communication and initialization. Signals are passed from component to component as JSON objects and are either transformed, acted upon, or ignored and passed on unchanged. 
+Components are effectively arranged in a loop (interfaces -> afferent components -> brain -> efferent components -> interfaces -> etc.) by a Mediator, which facilitates inter-component communication. Signals are passed from component to component as JSON objects and are either transformed, acted upon, or ignored and passed on unchanged. 
 
-{% include postImage.html imgName = "gptSignals.gif" width="525px" caption = "A simplified animated representation of a three-component configuration." %}
+{% include postImage.html imgName = "gptSignals.gif" width="525px" caption = "A simplified animated representation of a three-component configuration" %}
 
 This modular structure makes the actual main method pretty simple:
 
@@ -126,14 +126,14 @@ One of the few commands the bot has hardcoded into it is `create_command`:
 create_command --command_name="" --description="" --script_content="" --dependencies=""
 ```
 
-This creates a command for the bot to use later, just as it did this one. The script content is saved to a Python module in a commands package, and a virtual environment is created for it with the provided dependencies. In the description for `create_command`, the bot is instructed to include an `execute` method whose return value will be output when the command is called. The arguments are inferred from this method's signature, and they, along with the command name and description, are saved to a JSON file which is used to construct the boilerplate on startup.
+This creates a command for the bot to use later, just as it used this one. The script content is saved to a Python module in a commands package, and a virtual environment is created for it with the provided dependencies. In the description for `create_command`, the bot is instructed to include an `execute` method whose return value will be output when the command is called. The arguments are inferred from this method's signature, and they, along with the command name and description, are saved to a JSON file which is used to construct the boilerplate on startup.
 
 When a bot-created command is called, the appropriate module is loaded with importlib and the `execute` method is called from the command's virtual environment.
 
 ## Future Plans
 
 - Let the bot spawn (containerized?) [AutoGPT](https://github.com/Significant-Gravitas/Auto-GPT) instances
-- Save on tokens by letting the bot quote previous messages using variables instead of verbatim regeneration
+- Save on tokens by letting the bot quote previous messages by reference (i.e. named variables) instead of verbatim regeneration
 - Modularize components/interfaces and allow the bot to create them
 - Dynamically generate boilerplate based on configured components
 - Better-than-naive memory recall
