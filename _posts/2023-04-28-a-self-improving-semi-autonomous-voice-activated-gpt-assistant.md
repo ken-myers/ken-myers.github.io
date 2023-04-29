@@ -45,7 +45,7 @@ The bot is decently capable of stringing these together to get things done, but 
 
 <div class = "small-print" markdown="1">
 <br>
-\**I had to fix some issues with the Spotify implementation myself---the library it chose was prompting for user input in stdout, which was not being fed back to the bot. I feel like this more on me and that the bot did fine with what it was given.*
+\**I had to fix some issues with the Spotify implementation myself---the library it chose was prompting for user input in stdout, which was not being fed back to the bot. I feel like this was more on me and that the bot did fine with what it was given.*
 
 \***I implemented helper functions `save_secret` and `get_secret`, but the bot wrote the code to prompt the user for secrets and pass them to said helpers.*
 
