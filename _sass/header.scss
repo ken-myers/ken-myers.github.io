@@ -1,12 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+
 #logo{
     h1,p{
         padding:0;
         margin-bottom: 0;
         margin-top: 1px;
+        font-size: 1em;
+        text-align: left;
+        line-height: normal;
     }
 
     h1{
         font-weight: 600;
+        font-size: 1.5em;
     }
 }
 
@@ -25,13 +31,19 @@
         &:hover{
             text-decoration: underline;
         }
+
+        font-size:1em;
     }
 
 }
 
 #navBar{
+
+    max-width: 100%;
+    width:100vw;
+    font-family: 'IBM Plex Mono', monospace;
     display:flex;
     align-items: center;
-    margin: 0;
-    margin-bottom:17px;
+    margin-top: 1rem;
+    margin-bottom:1rem;
 }
