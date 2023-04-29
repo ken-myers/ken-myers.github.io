@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
 
-a{
-    color:black;
+h5{
+    font-size: large;
+}
+.monoFont{
+    font-family: 'IBM Plex Mono', monospace;
 }
 
 body{
@@ -13,25 +16,10 @@ body{
 
 }
 
-#titleWrapper{
-    margin-top: 24px;
-    text-align: center;
-}
-
-#titleHeader{
-    font-weight: 500;
-    text-transform: lowercase;
-}
-
-// #postListings{
-//     width: 70%;
-//     max-width: 750px;
-//     margin-right:auto;
-//     margin-left: auto;
-// }
 
 #content{
     width: 100%;
+    max-width: 80ch;
     text-align: justify;
     margin: 0 auto;
 }
@@ -46,9 +34,15 @@ body{
     }
 }
 
+.listingTitle{
+    width:70%;
+}
+
 .listingDate{
     margin-left: auto;
+    width:30%;
     padding-left: 1.5em;
+    text-align: right;
 }
 
 .listingNumber{
@@ -65,4 +59,18 @@ body{
     &:hover{
         text-decoration: underline;
     }
+}
+
+a{
+    color:black;
+}
+
+#titleWrapper{
+    margin-top: 24px;
+    text-align: center;
+}
+
+#titleHeader{
+    font-weight: 500;
+    text-transform: lowercase;
 }
