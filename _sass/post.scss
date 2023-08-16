@@ -1,5 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 @import "constants";
+
+#postDate{
+    margin-top:0;
+}
 
 .postImage, .postVid{
     border-radius: 5px;
@@ -30,7 +33,7 @@
     display: block;
     width: 100%;
     overflow-x: scroll;
-    img{
+    img.postImage{
         max-width: none;
     }
 }
