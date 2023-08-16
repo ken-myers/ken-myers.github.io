@@ -4,7 +4,7 @@ title: Posts
 ---
 
 <div id="postListings">
-    {% assign cronPosts = site.posts | reverse %}
+    {% assign cronPosts = site.posts | sort: "date" | reverse %}
     {% for post in cronPosts %}
         <a class = "listingLink" href = "{{ post.url }}">
             <div class="postListing">
