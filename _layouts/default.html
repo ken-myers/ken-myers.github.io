@@ -30,12 +30,22 @@
     <!-- ****** faviconit.com favicons ****** -->
 
     <link rel="stylesheet" href="/assets/css/styles.css">
+
+    {% if page.latex or layout.latex%}
+      <link rel="stylesheet" href="/assets/css/latex.css">
+    {% endif %}
+
+    {% if page.stylesheet %}
+      <link rel="stylesheet" href="/assets/css/{{ page.stylesheet }}">
+    {% endif %}
     <title>{{ page.title }} - kenmyers.io</title>
   </head>
   <body>
     {% include header.html %}
+    <div id="marginWrapper">
     <div id="content" style="max-width: {% if page.width %}{{ page.width }}{% else %}{{layout.width}}{% endif %}px;">
       {{ content }}
+    </div>
     </div>
   </body>
 </html>

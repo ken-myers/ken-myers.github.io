@@ -1,0 +1,158 @@
+@import "constants";
+
+
+#imageNote{
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+//----------portfolio entry styles---------------
+
+
+
+.entryHeader{
+    display: flex;
+    .dateHeader, .titleHeader{
+        margin: 0;
+    }
+    justify-content: space-between;
+}
+
+.linkBar{
+    font-style: italic;
+}
+
+.media{
+
+    //Global styles
+    margin: 1em auto;
+    border-radius: 2px;
+    overflow: hidden;
+    // Shadow
+    $distance: 2px;
+    $blur: 5px;
+    box-shadow:  $distance  $distance $blur #a8a8a8,
+                -1*$distance -1*$distance $blur  #ffffff;
+
+    //mobile styles          
+    img, video{
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 300px;
+    }
+    width:fit-content;
+    max-width: 100%;
+
+    // desktop styles
+    @media only screen and (min-width: $breakpoint-xsmall){
+        
+        float:left;
+
+        margin: 0.4rem 20px 0 0;
+        width: 260px;
+        max-width: 40%;
+        height:fit-content;
+
+        img, video{
+            margin-right: 0;
+            max-width: none;
+            max-height: none;
+            width: 100%;
+            height: auto;
+
+        }
+    }
+}
+
+//Don't truncate box shadows
+#portfolioEntries, .entry, .entryRow{
+    overflow: visible;
+}
+
+
+//Clearfix for floating media
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+
+// -----------divider styles----------------
+
+//Special styles for the first divider
+#firstDivider{
+   
+    .dingbatLine{
+        hr{
+            margin:1px 0;
+        }
+    }
+
+    .dingbatWrapper{
+        padding: 0 3px;
+    
+        .dingbatImage{
+            height:30px;
+            position: relative;
+            top: -3px
+        }
+    }
+    
+    
+    @media only screen and (max-width: $breakpoint-xsmall){
+        margin: 0px auto;
+    }
+}
+
+.verticalDivider{
+    display: block;
+    text-align: center;
+    
+    width: 100%;
+    height: 100px;
+
+    $my: 50px;
+    margin: $my auto $my auto;
+}
+
+.dingbatWrapper{
+    height: 100%;
+    width: fit-content;
+    
+    position:relative;
+    z-index: 2;
+
+    margin: auto;
+    padding: 0 5px;
+
+    background-color: white;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.dingbatLine{
+    position: relative;
+    top: 50%;
+    z-index: 0;
+
+    width:100%;
+
+    margin: 0;
+}
+
+
+#fin{
+    margin-bottom: 2rem;
+
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+}

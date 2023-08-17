@@ -26,6 +26,10 @@
 
 permalink: /posts/:slug
 
+collections:
+  portfolio:
+
+
 # Build settings
 markdown: kramdown
 theme: minima

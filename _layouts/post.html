@@ -1,11 +1,11 @@
 ---
 layout: default
+latex: true
 ---
 
-<link rel="stylesheet" href="/assets/css/latex.css"/>
-
+<div class = "latex-section">
 <div class = "postInfo">
-<h4 class= "postDate">{% assign d = page.date | date: "%-d"  %}
+<h4 id= "postDate">{% assign d = page.date | date: "%-d"  %}
 	{{ page.date | date: "%B" }} {% case d %}{% when '1' or '21' or '31' %}{{ d }}st{% when '2' or '22' %}{{ d }}nd{% when '3' or '23' %}{{ d }}rd{% else %}{{ d }}th{% endcase %}, {{ page.date | date: "%Y" }}
 </h4>
 
@@ -14,7 +14,7 @@ layout: default
 <div id="postContent">
 {{ content }}
 </div>
-
+</div>
 {% include modal.html %}
 
 <script src = "/assets/js/jquery-3.6.0.min.js"></script>

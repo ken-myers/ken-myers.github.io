@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+@import "constants";
+
 
 #logo{
     h1,p{
@@ -17,17 +18,21 @@
 }
 
 #logoLink{
+    margin-left: 17px;
     color: black;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
+
 #navLinks{
-    margin-left: auto;
+
+    //global styles
+    width: 100%;
     a{
         color:black;
         text-decoration: none;
-        margin:0;
-        margin-left:7px;
+
         &:hover{
             text-decoration: underline;
         }
@@ -35,15 +40,55 @@
         font-size:1em;
     }
 
+    //mobile styles
+    display: flex;  
+    flex-shrink: 0;
+    justify-content: space-evenly;
+    
+    padding-top:0.25rem;
+    padding-bottom:0.35rem;
+    margin-top: 1rem;
+
+    $borderstyle: 1px solid rgb(0, 0, 0);
+    border-top: $borderstyle;
+    border-bottom: $borderstyle;
+    border-bottom-style: dashed;
+    
+   
+
+
+    //desktop styles
+    @media only screen and (min-width: $breakpoint-xsmall){
+        display: block;
+
+
+        margin: 0 17px 0 auto;
+        padding: 0;
+
+
+        border: none;
+        width: auto;
+        background: none;
+
+        a{
+            margin-left:7px;
+        }
+
+
+       
+    }
+
+
 }
+
 
 #navBar{
 
-    max-width: 100%;
-    width:100vw;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: $monospace-font;
     display:flex;
     align-items: center;
     margin-top: 1rem;
-    margin-bottom:1rem;
+    margin-bottom:3rem;
+  
+    flex-wrap: wrap;
 }
