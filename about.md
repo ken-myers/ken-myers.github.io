@@ -7,9 +7,10 @@ width: 500
 
 i am a
 c.s. student at ut dallas.
-software dev intern at bell flight.
-amateur musician.
-wannabe traveller and entrepreneur.
+ACM research lead.
+previous software dev intern at BofA and Bell Flight.
+amateur musician and AI/ML researcher.
+wannabe traveler, photographer, entrepreneur
 sometimes fitness enthusiast. 
 
 i made this site
