@@ -10,7 +10,7 @@ c.s. student at ut dallas.
 ACM research lead.
 previous software dev intern at BofA and Bell Flight.
 amateur musician and AI/ML researcher.
-wannabe traveler, photographer, entrepreneur
+wannabe traveler, photographer, entrepreneur.
 sometimes fitness enthusiast. 
 
 i made this site
