@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "An Attempt At Evolutionary Melody Generation"
+title: "An Attempt at Evolutionary Melody Generation"
 slug: melodyfarm
 ---
 
@@ -25,7 +25,7 @@ The algorithms I used to both generate organisms' equations and the subsequent m
 
 Each organism has two member equations---[probability distributions](https://en.wikipedia.org/wiki/Probability_distribution) for rhythm/note duration and for pitch. These functions take a pitch/duration as an input, and yield the relative probability of it being output by the organism. Each equation is composed of constants, trigonometric and algebraic operators, variables for the durations and pitches of the melody's last three notes, and, of course, the input variable \\(x\\).
 
-{% include postImage.html imgName = "distributionExample.png" caption = "A graph of a probability distribution for pitch with the equation \(5cos^2(\dfrac{x^2}{20}-1) + x^\dfrac{2}{3}\)" %}
+{% include postImage.html imgName = "distributionExample.png" caption = "A graph of a probability distribution for pitch with the equation \(5cos^2(\dfrac{x^2}{20}-1) + x^{\frac{2}{3}}\)" %}
 
 For example, in the graph above, the peaks around \\(x = \pm 9\\) tell us that a note nine scale degrees above or below the center note is most likely to be output by this organism, and the dip at \\(x = 0\\) that the center note itself is least.
 
