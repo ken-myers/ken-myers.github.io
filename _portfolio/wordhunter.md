@@ -8,6 +8,8 @@ priority: 1
 links:
     -   name: Demo
         url: /wordhunter
+    -   name: Write-up
+        url: /posts/word-hunting
     -   name: GitHub
         url: https://github.com/ken-myers/wordhunter
 
