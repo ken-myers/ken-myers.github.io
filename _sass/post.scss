@@ -13,6 +13,12 @@
     font-size: 0.85rem;
 }
 
+.MathJax_Display{
+    overflow-y: hidden;
+    overflow-x: auto;
+    font-size: 1rem;
+}
+
 .imgCont, .vidCont{
     text-align: center;
     margin: 4em 0;
