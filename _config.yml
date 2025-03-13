@@ -27,7 +27,10 @@
 permalink: /posts/:slug
 
 collections:
+  photos:
+    output: false
   portfolio:
+    output: false
 
 
 # Build settings
