@@ -1,7 +1,12 @@
 $(document).ready(function() {
 	var scrollWidth = window.innerWidth-$(document).width();
 	$(".clickToModal").on("click", function() {
-		var imgSrc = $(this).attr("src");
+		// check if has photoImg class
+		if($(this).hasClass('photoImg')){
+			var imgSrc = $(this).attr("fullSrc");
+		}else{
+			var imgSrc = $(this).attr("src");
+		}
 	   	$('#modalImage').attr('src', imgSrc);
 	   	$('#modalNewTabLink').attr('href', imgSrc);
 	   	$('body').css('overflow', 'hidden');

@@ -9,8 +9,9 @@
 		style="--width: {{ photo.width }}; --height: {{ photo.height }};"
 	>
 		<img
-			class="clickToModal"
+			class="clickToModal photoImg"
 			src="{{ photo.preview_src | default: photo.src }}"
+			fullSrc="{{photo.src}}"
 			alt="{{ photo.caption }}"
 		/>
 	</div>
