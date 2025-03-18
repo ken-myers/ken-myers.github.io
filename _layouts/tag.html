@@ -1,0 +1,12 @@
+---
+layout: page
+width: 1920px;
+<!-- latex: true -->
+---
+{% assign filtered_photos = site.photos | where_exp:"photo", "photo.tags contains page.title" %}
+{% include gallery.html photos=filtered_photos %}
+
+{% include modal.html %}
+
+<script src = "/assets/js/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/modals.js"></script>
