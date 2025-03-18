@@ -4,19 +4,7 @@ title: all my photos
 width: 1920px;
 <!-- latex: true -->
 ---
-
-<div class = "gallery">
-    <!-- iterate over photos collection -->
-    {% for photo in site.photos %}
-        <div class = "photo"  style="--width: {{ photo.width }}; --height: {{ photo.height }};">
-            <img class = "clickToModal" src = "{{ photo.src }}" alt = "{{ photo.caption }}">
-            <!-- <p>{{ photo.caption }}</p> -->
-            <!-- TODO: allow for empty captions -->
-             <!-- TODO: make clickable -->
-        </div>
-    {% endfor %}
-</div>
-
+{% include gallery.html photos=site.photos %}
 
 {% include modal.html %}
 
