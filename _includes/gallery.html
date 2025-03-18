@@ -1,0 +1,18 @@
+<div class="gallery">
+    {% assign dated_photos = include.photos | where_exp:"item", "item.date != nil" %}
+    {% assign undated_photos = include.photos | where_exp:"item", "item.date == nil" %}
+    {% assign sorted_dated = dated_photos | sort:"date" | reverse %}
+    {% assign sorted_photos = sorted_dated | concat: undated_photos %}
+	{% for photo in sorted_photos %}
+	<div
+		class="photo"
+		style="--width: {{ photo.width }}; --height: {{ photo.height }};"
+	>
+		<img
+			class="clickToModal"
+			src="{{ photo.preview_src | default: photo.src }}"
+			alt="{{ photo.caption }}"
+		/>
+	</div>
+	{% endfor %}
+</div>
