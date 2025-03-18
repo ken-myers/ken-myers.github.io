@@ -28,10 +28,17 @@ permalink: /posts/:slug
 
 collections:
   photos:
-    output: false
   portfolio:
-    output: false
+  tags:
+    output: true
+    permalink: /photos/tag/:title
 
+
+defaults:
+  - scope:
+      type: tags
+    values:
+      layout: tag
 
 # Build settings
 markdown: kramdown
