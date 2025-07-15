@@ -5,7 +5,7 @@ permalink: /about/
 width: 500
 ---
 
-i am a full stack software dev (at bank of america);
+i am a full-stack software dev (at bank of america);
 amateur musician and AI/ML researcher;
 wannabe traveler, photographer, entrepreneur;
 sometimes fitness enthusiast.
