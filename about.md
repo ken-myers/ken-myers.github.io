@@ -5,17 +5,13 @@ permalink: /about/
 width: 500
 ---
 
-i am a
-c.s. student at ut dallas.
-ACM research lead.
-previous software dev intern at BofA and Bell Flight.
-amateur musician and AI/ML researcher.
-wannabe traveler, photographer, entrepreneur.
-sometimes fitness enthusiast. 
+i am a full stack software dev (at bank of america);
+amateur musician and AI/ML researcher;
+wannabe traveler, photographer, entrepreneur;
+sometimes fitness enthusiast.
 
-i made this site
-to keep track of my projects and keep myself accountable in that regard.
-and to serve as a professional portfolio.
+i made this site to showcase some of my projects, house the occasional writeup,
+supplement my résumé,
 and so my email domain wouldn't point to a registrar parking page.
 
 
