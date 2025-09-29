@@ -1,7 +1,6 @@
 ---
 layout: page
 title: Home
-permalink: /about/
 width: 550
 stylesheet: portfolio.css
 ---
