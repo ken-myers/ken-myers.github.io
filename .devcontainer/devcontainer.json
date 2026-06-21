@@ -1,0 +1,23 @@
+{
+  "name": "Base",
+  "image": "registry.gitlab.lan.kenmyers.io/ken/containers/dev-base",
+  "remoteUser": "root",
+  "mounts": [
+    "source=ken-codex-shared,target=/var/lib/ken/codex-shared,type=volume",
+    "source=ken-codex-home-${devcontainerId},target=/var/lib/ken/codex-home,type=volume",
+    "source=ken-claude-shared,target=/var/lib/ken/claude-shared,type=volume",
+    "source=ken-claude-home-${devcontainerId},target=/var/lib/ken/claude-home,type=volume",
+    "source=ken-glab-shared,target=/var/lib/ken/glab-shared,type=volume",
+    "source=ken-gh-shared,target=/var/lib/ken/gh-shared,type=volume",
+    "source=${localEnv:HOME}/.ssh/signing.pub,target=/tmp/ken-signing.pub,type=bind,readonly",
+    "source=${localEnv:HOME}/.ssh/nixvm-agent,target=/tmp/ken-nixvm-agent,type=bind,readonly",
+    "source=${localEnv:SSH_AUTH_SOCK},target=/tmp/ken-ssh-agent.sock,type=bind",
+    "source=${localEnv:HOME}/source,target=/repos,type=bind,readonly"
+  ],
+  "containerEnv": {
+    "CODEX_HOME": "/var/lib/ken/codex-home",
+    "SSH_AUTH_SOCK": "/tmp/ken-ssh-agent.sock"
+  },
+
+  "onCreateCommand": "/bin/init-home-state"
+}
