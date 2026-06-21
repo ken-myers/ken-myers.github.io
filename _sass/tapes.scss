@@ -73,7 +73,7 @@
     align-items: baseline;
     justify-content: center;
     gap: 2ch;
-    margin: 1.5em 0 0;
+    margin: 0;
     font-family: $monospace-font;
     font-size: 0.95rem;
     font-variant-numeric: tabular-nums;
@@ -121,7 +121,7 @@
 // so margin-top:auto pushes the boombox to the bottom of the viewport. the tape pager
 // keeps the visible list short enough to preserve the boombox clearance.
 #tapesBody {
-    --boombox-clearance: 1.5rem;
+    --boombox-clearance: 3rem;
     display: flex;
     flex-direction: column;
 }
