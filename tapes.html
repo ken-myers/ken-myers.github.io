@@ -6,13 +6,28 @@ width: 720
 ---
 
 <div id="tapesBody">
+<nav id="tapePager" class="tapePager" aria-label="tape pages" hidden>
+    <button id="tapePrev" class="tapePageButton" type="button">[prev]</button>
+    <span id="tapePageStatus" aria-live="polite"></span>
+    <button id="tapeNext" class="tapePageButton" type="button">[next]</button>
+</nav>
+
 <div id="tapeListings">
     {% assign allTapes = site.tapes | sort: "date" | reverse %}
+    {% assign tapeCount = allTapes | size %}
+    {% assign tapeDigits = tapeCount | append: "" | size %}
     {% for tape in allTapes %}
         {% assign dmin = tape.duration | divided_by: 60 %}
         {% assign dsec = tape.duration | modulo: 60 %}
+        {% assign tapeNumber = forloop.rindex | append: "" %}
+        {% assign tapeNumberDigits = tapeNumber | size %}
+        {% assign zeroCount = tapeDigits | minus: tapeNumberDigits %}
+        {% assign tapeNumberPrefix = "" %}
+        {% if zeroCount > 0 %}
+            {% assign tapeNumberPrefix = "00000000000000000000" | slice: 0, zeroCount %}
+        {% endif %}
         <div class="tape" data-audio="{{ tape.audio }}" data-duration="{{ tape.duration }}">
-            <span class="tapeNumber">{{ forloop.rindex }}.</span>
+            <span class="tapeNumber" data-number="{{ forloop.rindex }}">{{ tapeNumberPrefix }}{{ tapeNumber }}.</span>
             <span class="tapeDate">{{ tape.date | date: "%m-%d-%Y" }}</span>
             <button class="tapePlay" type="button" aria-label="play">[&#9654;&#65038;]</button>
             <span class="tapeBar" aria-hidden="true"></span>

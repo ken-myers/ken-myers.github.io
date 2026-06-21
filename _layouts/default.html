@@ -38,7 +38,7 @@
     {% if page.stylesheet %}
       <link rel="stylesheet" href="/assets/css/{{ page.stylesheet }}">
     {% endif %}
-    <title>{{ page.title }} - kenmyers.io</title>
+    <title>{{ page.title | downcase }} - kenmyers.io</title>
   </head>
   <body>
     {% include header.html %}

@@ -101,7 +101,7 @@
       renderBtn();
     }
 
-    players.push({ audio: audio, layout: layout, reset: reset });
+    players.push({ tape: tape, audio: audio, layout: layout, reset: reset });
 
     // drive the bar from requestAnimationFrame while playing (~60fps) instead
     // of the "timeupdate" event (~4fps), so progress advances one cell at a
@@ -162,6 +162,146 @@
     for (var i = 0; i < players.length; i++) players[i].layout();
   }
 
+  function normalizeNumbers(tapes) {
+    var max = 0;
+    for (var i = 0; i < tapes.length; i++) {
+      var numberEl = tapes[i].querySelector(".tapeNumber");
+      if (!numberEl) continue;
+      var n = parseInt(numberEl.getAttribute("data-number") || numberEl.textContent, 10);
+      if (isFinite(n)) max = Math.max(max, n);
+    }
+
+    var digits = String(max || tapes.length).length;
+    for (var j = 0; j < tapes.length; j++) {
+      var el = tapes[j].querySelector(".tapeNumber");
+      if (!el) continue;
+      var num = parseInt(el.getAttribute("data-number") || el.textContent, 10);
+      if (isFinite(num)) el.textContent = String(num).padStart(digits, "0") + ".";
+    }
+  }
+
+  function setupPagination(tapes) {
+    var body = document.getElementById("tapesBody");
+    var listings = document.getElementById("tapeListings");
+    var pager = document.getElementById("tapePager");
+    var prev = document.getElementById("tapePrev");
+    var next = document.getElementById("tapeNext");
+    var status = document.getElementById("tapePageStatus");
+    var boombox = document.getElementById("boombox");
+    if (!body || !listings || !pager || !prev || !next || !status || tapes.length === 0) return;
+
+    var pageSize = tapes.length;
+    var currentPage = 0;
+    var scheduled = false;
+
+    function bodyBottom() {
+      var rect = body.getBoundingClientRect();
+      var minHeight = parseFloat(body.style.minHeight);
+      if (!isFinite(minHeight) || minHeight <= 0) minHeight = rect.height;
+      return rect.top + minHeight;
+    }
+
+    function boomboxHeight() {
+      return boombox ? boombox.getBoundingClientRect().height : 0;
+    }
+
+    function rowHeight() {
+      for (var i = 0; i < tapes.length; i++) {
+        if (tapes[i].hidden) continue;
+        var h = tapes[i].getBoundingClientRect().height;
+        if (h > 0) return h;
+      }
+
+      var first = tapes[0];
+      var wasHidden = first.hidden;
+      var oldVisibility = first.style.visibility;
+      if (wasHidden) {
+        first.hidden = false;
+        first.style.visibility = "hidden";
+      }
+      var measured = first.getBoundingClientRect().height;
+      if (wasHidden) first.hidden = true;
+      first.style.visibility = oldVisibility;
+      return measured || 1;
+    }
+
+    function measurePageSize(showPager) {
+      var wasHidden = pager.hidden;
+      var oldVisibility = pager.style.visibility;
+
+      pager.hidden = !showPager;
+      pager.style.visibility = showPager ? "hidden" : oldVisibility;
+
+      var available = bodyBottom() - listings.getBoundingClientRect().top - boomboxHeight();
+      var h = rowHeight();
+
+      pager.hidden = wasHidden;
+      pager.style.visibility = oldVisibility;
+
+      return Math.max(1, Math.floor(available / h));
+    }
+
+    function calculatePageSize() {
+      var noPagerSize = measurePageSize(false);
+      if (noPagerSize >= tapes.length) return tapes.length;
+      return measurePageSize(true);
+    }
+
+    function render() {
+      var totalPages = Math.max(1, Math.ceil(tapes.length / pageSize));
+      currentPage = Math.max(0, Math.min(currentPage, totalPages - 1));
+      var start = currentPage * pageSize;
+      var end = Math.min(tapes.length, start + pageSize);
+
+      for (var i = 0; i < tapes.length; i++) {
+        var visible = i >= start && i < end;
+        tapes[i].hidden = !visible;
+        if (!visible && players[i]) players[i].reset();
+      }
+
+      pager.hidden = totalPages <= 1;
+      prev.disabled = currentPage === 0;
+      next.disabled = currentPage >= totalPages - 1;
+      status.textContent = (currentPage + 1) + " / " + totalPages;
+      layoutAll();
+    }
+
+    function repaginate() {
+      scheduled = false;
+      var firstVisible = currentPage * pageSize;
+      var nextPageSize = calculatePageSize();
+      if (nextPageSize !== pageSize) {
+        pageSize = nextPageSize;
+        currentPage = Math.floor(firstVisible / pageSize);
+      }
+      render();
+    }
+
+    function scheduleRepaginate() {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(repaginate);
+    }
+
+    prev.addEventListener("click", function () {
+      if (currentPage <= 0) return;
+      currentPage--;
+      render();
+    });
+
+    next.addEventListener("click", function () {
+      if (currentPage >= Math.ceil(tapes.length / pageSize) - 1) return;
+      currentPage++;
+      render();
+    });
+
+    window.addEventListener("resize", scheduleRepaginate);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleRepaginate);
+    }
+    repaginate();
+  }
+
   // bar width changes with the viewport; the monospace char width changes once
   // the webfont swaps in — re-measure on both.
   window.addEventListener("resize", layoutAll);
@@ -171,7 +311,9 @@
 
   function init() {
     var tapes = document.querySelectorAll(".tape");
+    normalizeNumbers(tapes);
     for (var i = 0; i < tapes.length; i++) setup(tapes[i]);
+    setupPagination(tapes);
   }
 
   if (document.readyState === "loading") {

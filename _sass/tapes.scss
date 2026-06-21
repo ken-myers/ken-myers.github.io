@@ -4,7 +4,7 @@
     font-family: $monospace-font;
     font-size: 0.95rem;
     text-align: left;
-    margin: 1.5em 0;
+    margin: 1em 0 0;
 }
 
 .tape {
@@ -14,9 +14,14 @@
     padding: 0.4em 0;
 }
 
+.tape[hidden] {
+    display: none;
+}
+
 // accumulating index (newest = highest = total count); posts-style "N."
 .tapeNumber {
     flex: 0 0 auto;
+    font-variant-numeric: tabular-nums;
 }
 
 .tapeDate {
@@ -63,15 +68,60 @@
     font-variant-numeric: tabular-nums;
 }
 
+.tapePager {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 2ch;
+    margin: 1.5em 0 0;
+    font-family: $monospace-font;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.tapePager[hidden] {
+    display: none;
+}
+
+.tapePager[hidden] + #tapeListings {
+    margin-top: 1.5em;
+}
+
+.tapePageButton {
+    margin: 0;
+    font: inherit;
+    line-height: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.tapePageButton:disabled {
+    cursor: default;
+    opacity: 0.35;
+}
+
+#tapePageStatus {
+    min-width: 6ch;
+    text-align: center;
+    white-space: pre;
+}
+
 @media (max-width: $breakpoint-xsmall) {
     #tapeListings { font-size: 0.8rem; }
     .tape { gap: 0.6ch; }
+    .tapePager { font-size: 0.8rem; }
 }
 
 // #tapesBody stretches from below the title to the viewport bottom (min-height set in js),
-// so margin-top:auto pushes the boombox to the bottom of the viewport. when the list is
-// taller than the viewport there's no free space, so the boombox just flows and scrolls.
+// so margin-top:auto pushes the boombox to the bottom of the viewport. the tape pager
+// keeps the visible list short enough to preserve the boombox clearance.
 #tapesBody {
+    --boombox-clearance: 1.5rem;
     display: flex;
     flex-direction: column;
 }
@@ -83,6 +133,7 @@
 #boombox {
     align-self: center;
     margin-top: auto;
+    padding-top: var(--boombox-clearance);
     width: 56ch;
     font-family: $monospace-font;
     font-size: 8px;

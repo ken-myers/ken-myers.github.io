@@ -19,5 +19,9 @@
     "SSH_AUTH_SOCK": "/tmp/ken-ssh-agent.sock"
   },
 
-  "onCreateCommand": "/bin/init-home-state"
+  "appPort": ["4000:4000"],
+  "onCreateCommand": "/bin/init-home-state",
+  "portsAttributes": {
+    "4000": { "label": "Jekyll" }
+  }
 }
