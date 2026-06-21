@@ -6,7 +6,7 @@
     t = Math.max(0, Math.floor(t));
     var m = Math.floor(t / 60);
     var s = t % 60;
-    return m + ":" + (s < 10 ? "0" : "") + s;
+    return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
   }
 
   var players = [];
@@ -31,8 +31,17 @@
 
     var cells = 1; // recomputed by layout() from the bar's actual width
 
+    // total duration comes from the tape's front matter (data-duration, in
+    // seconds) so the readout is right instantly and with JS off; prefer the
+    // precise value from the file's metadata once it has loaded.
+    var dataDur = parseFloat(tape.getAttribute("data-duration"));
+    function dur() {
+      if (audio.duration && isFinite(audio.duration)) return audio.duration;
+      return isFinite(dataDur) ? dataDur : NaN;
+    }
+
     function fraction() {
-      var d = audio.duration;
+      var d = dur();
       if (!d || !isFinite(d)) return 0;
       return Math.max(0, Math.min(1, audio.currentTime / d));
     }
@@ -63,7 +72,7 @@
 
     // always elapsed / total (idle = 0:00 / dur) so the readout never changes width.
     function renderTime() {
-      timeEl.textContent = fmt(audio.currentTime) + " / " + fmt(audio.duration);
+      timeEl.textContent = fmt(audio.currentTime) + " / " + fmt(dur());
     }
 
     function renderBtn() {
@@ -132,7 +141,7 @@
     // click anywhere on the bar to seek; measured over the cell region
     // (between the brackets) so it maps cleanly to playback position.
     bar.addEventListener("click", function (e) {
-      var d = audio.duration;
+      var d = dur();
       if (!d || !isFinite(d)) return;
       var startX = fill.getBoundingClientRect().left;
       var endX = rest.getBoundingClientRect().right;

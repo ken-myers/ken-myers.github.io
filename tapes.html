@@ -9,12 +9,14 @@ width: 720
 <div id="tapeListings">
     {% assign allTapes = site.tapes | sort: "date" | reverse %}
     {% for tape in allTapes %}
-        <div class="tape" data-audio="{{ tape.audio }}">
+        {% assign dmin = tape.duration | divided_by: 60 %}
+        {% assign dsec = tape.duration | modulo: 60 %}
+        <div class="tape" data-audio="{{ tape.audio }}" data-duration="{{ tape.duration }}">
             <span class="tapeNumber">{{ forloop.rindex }}.</span>
             <span class="tapeDate">{{ tape.date | date: "%m-%d-%Y" }}</span>
             <button class="tapePlay" type="button" aria-label="play">[&#9654;&#65038;]</button>
             <span class="tapeBar" aria-hidden="true"></span>
-            <span class="tapeTime">--:--</span>
+            <span class="tapeTime">{% if tape.duration %}00:00 / {% if dmin < 10 %}0{% endif %}{{ dmin }}:{% if dsec < 10 %}0{% endif %}{{ dsec }}{% else %}--:--{% endif %}</span>
             <audio preload="metadata" src="{{ tape.audio }}"></audio>
         </div>
     {% endfor %}
