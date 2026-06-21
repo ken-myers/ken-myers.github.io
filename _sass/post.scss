@@ -1,0 +1,96 @@
+@import "constants";
+
+#postDate{
+    margin-top:0;
+}
+
+.postTitle{
+    text-align: left;
+}
+
+.postImage, .postVid{
+    border-radius: 5px;
+    max-width: 100%;
+}
+
+.small-print{
+    font-size: 0.85rem;
+}
+
+.MathJax_Display{
+    overflow-y: hidden;
+    overflow-x: auto;
+    font-size: 1rem;
+}
+
+.imgCont, .vidCont{
+    text-align: center;
+    margin: 4em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .imgCaption, .vidCaption{
+        display: block;
+        margin: 0.5em auto;
+        max-width: 95%;
+        font-size: 14px;
+        text-align: center;
+    }
+}
+
+.scrollWrapper{
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    overflow-x: scroll;
+    img.postImage{
+        max-width: none;
+    }
+}
+
+.clickToModal{
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.flexrow{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2.5em 0;
+
+    &.flexrow4{
+        div, span{
+
+            flex-basis:23%;
+            margin: 1.5em 0;
+            // padding: 0 1.5em;
+
+            @media only screen and (max-width: $breakpoint-medium){
+                flex-basis: 48%;  
+            }
+            @media only screen and (max-width: $breakpoint-xsmall){
+                flex-basis: 100%;  
+            }
+
+            
+        }
+    }
+
+    &.flexrow2{
+        div, span{
+
+            flex-basis:48%;
+            margin: 1.5em 0;
+            // padding: 0 1.5em;
+
+            @media only screen and (max-width: $breakpoint-medium){
+                flex-basis: 100%;  
+            }
+
+            
+        }
+    }
+
+}

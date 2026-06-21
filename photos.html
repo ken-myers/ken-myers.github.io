@@ -1,0 +1,74 @@
+---
+layout: page
+title: all my photos
+permalink: /photos/
+width: 1920px;
+---
+{% include tagNav.html %}
+
+{%- comment -%}
+  One chronological pass over every photo (newest first; undated last).
+  A new section header is emitted whenever the "key" changes:
+    - trip photos   -> key = trip name -> header: name [oldest–newest]
+    - loose dated   -> key = "unnamed" -> header: [oldest–newest]  (one contiguous
+                       run between trips, NOT bucketed by month)
+    - undated       -> key = "undated" -> header: undated
+  Dates are numeric (m/d/Y). For an unnamed run we forward-scan the sorted list
+  to find the run's oldest date (it ends at the next trip / undated / list end).
+{%- endcomment -%}
+
+{%- assign allphotos = site.photos | sort: "date" | reverse -%}
+{%- assign prevkey = "" -%}
+{%- for p in allphotos -%}
+    {%- assign idx = forloop.index -%}
+    {%- assign isfirst = forloop.first -%}
+    {%- assign islast = forloop.last -%}
+
+    {%- if p.trip -%}
+        {%- assign key = p.trip -%}
+    {%- elsif p.date -%}
+        {%- assign key = "unnamed" -%}
+    {%- else -%}
+        {%- assign key = "undated" -%}
+    {%- endif -%}
+
+    {%- if key != prevkey -%}
+        {%- unless isfirst %}</div>{% endunless -%}
+        {%- if p.trip -%}
+            {%- assign tphotos = site.photos | where_exp: "x", "x.trip == p.trip" | sort: "date" -%}
+            {%- assign tfirst = tphotos | first -%}
+            {%- assign tlast = tphotos | last -%}
+            {%- assign rmin = tfirst.date | date: "%m-%d-%Y" -%}
+            {%- assign rmax = tlast.date | date: "%m-%d-%Y" -%}
+            <h2 class="galleryHeader"><span class="ghName"><a href="/photos/tag/{{ p.trip | slugify }}">{{ p.trip }}</a></span><span class="ghRange">{{ rmin }} to {{ rmax }}</span></h2>
+        {%- elsif p.date -%}
+            {%- assign runmin = p.date -%}
+            {%- assign inrun = true -%}
+            {%- for q in allphotos offset: idx -%}
+                {%- if q.trip or q.date == nil -%}
+                    {%- assign inrun = false -%}
+                {%- elsif inrun -%}
+                    {%- assign runmin = q.date -%}
+                {%- endif -%}
+            {%- endfor -%}
+            {%- assign rmin = runmin | date: "%m-%d-%Y" -%}
+            {%- assign rmax = p.date | date: "%m-%d-%Y" -%}
+            <h2 class="galleryHeader"><span class="ghName"></span><span class="ghRange">{{ rmin }} to {{ rmax }}</span></h2>
+        {%- else -%}
+            <h2 class="galleryHeader"><span class="ghName">undated</span></h2>
+        {%- endif -%}
+        <div class="gallery">
+        {%- assign prevkey = key -%}
+    {%- endif -%}
+
+    <div class="photo" style="--width: {{ p.width }}; --height: {{ p.height }};">
+        <img class="clickToModal photoImg" src="{{ p.preview_src | default: p.src }}" fullSrc="{{ p.src }}" alt="{{ p.caption }}" />
+    </div>
+
+    {%- if islast %}</div>{% endif -%}
+{%- endfor -%}
+
+{% include modal.html %}
+
+<script src = "/assets/js/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/modals.js"></script>

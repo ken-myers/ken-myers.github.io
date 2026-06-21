@@ -1,0 +1,6 @@
+_site/
+.sass-cache/
+.jekyll_cache/
+.jekyll-cache/
+.vscode/
+scripts/

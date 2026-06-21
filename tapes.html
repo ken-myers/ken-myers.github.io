@@ -1,0 +1,43 @@
+---
+layout: page
+title: tapes
+permalink: /tapes/
+width: 720
+---
+
+<div id="tapesBody">
+<div id="tapeListings">
+    {% assign allTapes = site.tapes | sort: "date" | reverse %}
+    {% for tape in allTapes %}
+        <div class="tape" data-audio="{{ tape.audio }}">
+            <span class="tapeNumber">{{ forloop.rindex }}.</span>
+            <span class="tapeDate">{{ tape.date | date: "%m-%d-%Y" }}</span>
+            <button class="tapePlay" type="button" aria-label="play">[&#9654;&#65038;]</button>
+            <span class="tapeBar" aria-hidden="true"></span>
+            <span class="tapeTime">--:--</span>
+            <audio preload="metadata" src="{{ tape.audio }}"></audio>
+        </div>
+    {% endfor %}
+</div>
+
+<pre id="boombox" aria-hidden="true"></pre>
+</div>
+
+<script src="/assets/js/tapes.js"></script>
+<script src="/assets/js/boombox.js"></script>
+<script>
+  // make #tapesBody fill from below the title to the viewport bottom, so the
+  // boombox (margin-top:auto) sits at the bottom of the viewport when the list is
+  // short, and just flows + scrolls when the list is taller than the viewport.
+  (function () {
+    var tb = document.getElementById("tapesBody");
+    if (!tb) return;
+    function fit() {
+      var top = tb.getBoundingClientRect().top + window.pageYOffset;
+      var pb = parseFloat(getComputedStyle(document.body).paddingBottom) || 0;
+      tb.style.minHeight = Math.max(0, window.innerHeight - top - pb) + "px";
+    }
+    window.addEventListener("resize", fit);
+    fit();
+  })();
+</script>

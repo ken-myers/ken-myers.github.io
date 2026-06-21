@@ -1,0 +1,21 @@
+# Standalone LOCAL PREVIEW config (NOT used by GitHub Pages).
+# Mirror of _config.yml minus `theme: minima` and the jekyll-feed plugin —
+# neither is installed in the nix jekyll environment. The custom _layouts/
+# don't use minima, and feed.xml isn't needed to eyeball the site locally.
+permalink: /posts/:slug
+
+collections:
+  photos:
+  portfolio:
+  tapes:
+  albums:
+    output: true
+    permalink: /photos/tag/:title
+
+defaults:
+  - scope:
+      type: albums
+    values:
+      layout: tag
+
+markdown: kramdown

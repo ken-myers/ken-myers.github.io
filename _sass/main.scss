@@ -1,0 +1,214 @@
+@import "constants";
+
+$fontdisplay: swap;
+
+@font-face {
+  font-family: 'Latin Modern';
+  font-style: normal;
+  font-weight: normal;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/LM-regular.woff2') format('woff2'),
+    url('/assets/fonts/LM-regular.woff') format('woff'),
+    url('/assets/fonts/LM-regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Latin Modern';
+  font-style: italic;
+  font-weight: normal;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/LM-italic.woff2') format('woff2'),
+    url('/assets/fonts/LM-italic.woff') format('woff'),
+    url('/assets/fonts/LM-italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Latin Modern';
+  font-style: normal;
+  font-weight: bold;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/LM-bold.woff2') format('woff2'),
+    url('/assets/fonts/LM-bold.woff') format('woff'),
+    url('/assets/fonts/LM-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Latin Modern';
+  font-style: italic;
+  font-weight: bold;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/LM-bold-italic.woff2') format('woff2'),
+    url('/assets/fonts/LM-bold-italic.woff') format('woff'),
+    url('/assets/fonts/LM-bold-italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Libertinus';
+  font-style: normal;
+  font-weight: normal;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/Libertinus-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Libertinus';
+  font-style: italic;
+  font-weight: normal;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/Libertinus-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Libertinus';
+  font-style: normal;
+  font-weight: bold;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/Libertinus-bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Libertinus';
+  font-style: italic;
+  font-weight: bold;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/Libertinus-bold-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Libertinus';
+  font-style: normal;
+  font-weight: 600;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/Libertinus-semibold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Libertinus';
+  font-style: italic;
+  font-weight: 600;
+  font-display: $fontdisplay;
+  src: url('/assets/fonts/Libertinus-semibold-italic.woff2') format('woff2');
+}
+
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: normal;
+    font-display: $fontdisplay;
+    src: url("/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: bold;
+    font-display: $fontdisplay;
+    src: url("/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Bold.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 600;
+    font-display: $fontdisplay;
+    src: url("/assets/fonts/IBM_Plex_Mono/IBMPlexMono-SemiBold.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: $fontdisplay;
+    src: url("/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Medium.ttf") format('truetype');
+}
+
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: normal;
+    font-display: $fontdisplay;
+    src: url("/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Italic.ttf") format('truetype');
+}
+
+h5{
+    font-size: large;
+}
+
+
+
+body{
+    padding:0;
+    margin:0;
+    padding-bottom: 50px;
+
+    font-family: $body-font;
+    width: 100%;
+}
+
+
+#content{
+    width:100%;
+    max-width: 80ch;
+    text-align: justify;
+    margin: 0 auto;
+}
+
+#marginWrapper{
+    margin: 0 17px;
+}
+
+.postListing{
+    text-align: left;
+    display:flex;
+    font-family: $monospace-font;
+
+    &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.listingTitle{
+    width:60%;
+}
+
+.listingDate{
+    margin-left: auto;
+    width:40%;
+    padding-left: 1.5em;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.listingNumber{
+    margin-right: 7px;
+}
+
+
+#notFoundContainer{
+    text-align: center;
+}
+
+.listingLink{
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+a{
+    color:black;
+}
+
+#titleWrapper{
+    margin-top: 24px;
+    text-align: center;
+}
+
+#titleHeader{
+    text-transform: lowercase;
+    font-weight: 500;
+    font-family: $monospace-font;
+}

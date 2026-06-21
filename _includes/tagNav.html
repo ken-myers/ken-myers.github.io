@@ -1,0 +1,8 @@
+{% assign chrono = site.albums | where_exp: "a", "a.chronological == true" | sort: "date" | reverse %}
+{% assign normal = site.albums | where_exp: "a", "a.chronological != true" | sort: "title" %}
+{% assign nav = chrono | concat: normal %}
+{% if nav.size > 0 %}
+<nav class="tagNav">
+<a href="/photos/">all</a>{% for album in nav %} &middot; <a href="{{ album.url }}">{{ album.title }}</a>{% endfor %}
+</nav>
+{% endif %}

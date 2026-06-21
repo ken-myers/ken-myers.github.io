@@ -1,0 +1,96 @@
+@import "constants";
+
+#tapeListings {
+    font-family: $monospace-font;
+    font-size: 0.95rem;
+    text-align: left;
+    margin: 1.5em 0;
+}
+
+.tape {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9ch;
+    padding: 0.4em 0;
+}
+
+// accumulating index (newest = highest = total count); posts-style "N."
+.tapeNumber {
+    flex: 0 0 auto;
+}
+
+.tapeDate {
+    flex: 0 0 auto;
+    width: 10ch;
+    white-space: nowrap;
+}
+
+// bracketed ascii play/pause: "[>]" toggles to "[||]". fixed 4ch cell (fits
+// "[||]") so toggling the glyph never reflows the full-width bar beside it.
+.tapePlay {
+    flex: 0 0 auto;
+    margin: 0;
+    width: 4ch;
+    text-align: center;
+    font: inherit;
+    line-height: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+// [====------] stretches to fill the row (flex-grow); js measures the box and
+// prints exactly enough "=" / "-" cells to span it. click to seek.
+// all one black; progress reads from the glyph shape, not colour.
+.tapeBar {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: pre;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+// idle: total duration. playing/paused mid-track: elapsed / total.
+.tapeTime {
+    flex: 0 0 auto;
+    margin-left: 0.6ch;
+    white-space: pre;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: $breakpoint-xsmall) {
+    #tapeListings { font-size: 0.8rem; }
+    .tape { gap: 0.6ch; }
+}
+
+// #tapesBody stretches from below the title to the viewport bottom (min-height set in js),
+// so margin-top:auto pushes the boombox to the bottom of the viewport. when the list is
+// taller than the viewport there's no free space, so the boombox just flows and scrolls.
+#tapesBody {
+    display: flex;
+    flex-direction: column;
+}
+
+// ascii boombox at the bottom of the tapes column, centered horizontally; animates while a
+// tape plays. width is fixed to the boombox body (the no-wave frame, 56 cols) so the body
+// stays centered and steady while the waves spill out to the right as they pulse — rather
+// than the whole block re-centering every frame. in normal flow, selectable like any text.
+#boombox {
+    align-self: center;
+    margin-top: auto;
+    width: 56ch;
+    font-family: $monospace-font;
+    font-size: 8px;
+    line-height: 1.0;
+    color: #000;
+    white-space: pre;
+}
+
+@media (max-width: $breakpoint-xsmall) {
+    #boombox { display: none; }   // ascii is too wide for phones
+}

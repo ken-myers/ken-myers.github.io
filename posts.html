@@ -1,0 +1,19 @@
+---
+layout: page
+title: Posts
+permalink: /posts/
+width: 720
+---
+
+<div id="postListings">
+    {% assign cronPosts = site.posts | sort: "date" | reverse %}
+    {% for post in cronPosts %}
+        <a class = "listingLink" href = "{{ post.url }}">
+            <div class="postListing">
+                        <span class = "listingNumber"> {{ forloop.rindex }}.</span>
+                        <span class = "listingTitle">{{ post.title }}</span>
+                        <span class= "listingDate">{% assign d = post.date | date: "%-d"  %}{{ post.date | date: "%B" }} {% case d %}{% when '1' or '21' or '31' %}{{ d }}st{% when '2' or '22' %}{{ d }}nd{% when '3' or '23' %}{{ d }}rd{% else %}{{ d }}th{% endcase %}, {{ post.date | date: "%Y" }}</span>
+            </div>
+        </a>
+    {% endfor %}
+</div>
