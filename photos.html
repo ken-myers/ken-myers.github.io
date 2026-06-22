@@ -18,14 +18,23 @@ width: 1920px;
 {%- endif -%}
 
 {%- comment -%}
-  One chronological pass over every photo (newest first; undated last).
-  A new section header is emitted whenever the "key" changes:
-    - trip photos   -> key = trip name -> header: name [oldest–newest]
-    - loose dated   -> key = "unnamed" -> header: [oldest–newest]  (one contiguous
-                       run between trips, NOT bucketed by month)
-    - undated       -> key = "undated" -> header: undated
-  Dates are numeric (m/d/Y). For an unnamed run we forward-scan the sorted list
-  to find the run's oldest date (it ends at the next trip / undated / list end).
+  One chronological pass over every photo (newest first; undated last). A new
+  section starts whenever the timeline "key" changes. The key is, in priority:
+
+    - segment  -> free-text timeline heading (e.g. "back to nyc again"). This is
+                  a SEPARATE axis from tags/albums: the same place can recur in
+                  the timeline under different segment titles while still living
+                  in one album via its `tags`. Rendered as plain text (a segment
+                  is "not necessarily a tag", so it doesn't link anywhere).
+    - trip     -> legacy named trip; rendered as a heading linking to its album.
+    - (dated)  -> key "unnamed": a contiguous run of loose dated photos; range
+                  only, no title.
+    - (undated)-> key "undated": no date; sorts last; header "undated".
+
+  Each section's date range is computed from ITS OWN contiguous run (forward-scan
+  the sorted list until the key changes) — not from every photo sharing the name,
+  so a place that recurs shows the right span each time. A run that lives on a
+  single day (a day trip) shows just that one date, not "date to date".
 {%- endcomment -%}
 
 {%- assign allphotos = site.photos | sort: "date" | reverse -%}
@@ -35,36 +44,44 @@ width: 1920px;
     {%- assign isfirst = forloop.first -%}
     {%- assign islast = forloop.last -%}
 
-    {%- if p.trip -%}
+    {%- if p.segment -%}
+        {%- assign key = p.segment -%}
+        {%- assign kind = "segment" -%}
+    {%- elsif p.trip -%}
         {%- assign key = p.trip -%}
+        {%- assign kind = "trip" -%}
     {%- elsif p.date -%}
         {%- assign key = "unnamed" -%}
+        {%- assign kind = "unnamed" -%}
     {%- else -%}
         {%- assign key = "undated" -%}
+        {%- assign kind = "undated" -%}
     {%- endif -%}
 
     {%- if key != prevkey -%}
         {%- unless isfirst %}</div>{% endunless -%}
-        {%- if p.trip -%}
-            {%- assign tphotos = site.photos | where_exp: "x", "x.trip == p.trip" | sort: "date" -%}
-            {%- assign tfirst = tphotos | first -%}
-            {%- assign tlast = tphotos | last -%}
-            {%- assign rmin = tfirst.date | date: "%m-%d-%Y" -%}
-            {%- assign rmax = tlast.date | date: "%m-%d-%Y" -%}
-            <h2 class="galleryHeader"><span class="ghName"><a href="/photos/tag/{{ p.trip | slugify }}">{{ p.trip }}</a></span><span class="ghRange">{{ rmin }} to {{ rmax }}</span></h2>
-        {%- elsif p.date -%}
-            {%- assign runmin = p.date -%}
-            {%- assign inrun = true -%}
-            {%- for q in allphotos offset: idx -%}
-                {%- if q.trip or q.date == nil -%}
-                    {%- assign inrun = false -%}
-                {%- elsif inrun -%}
-                    {%- assign runmin = q.date -%}
-                {%- endif -%}
-            {%- endfor -%}
-            {%- assign rmin = runmin | date: "%m-%d-%Y" -%}
-            {%- assign rmax = p.date | date: "%m-%d-%Y" -%}
-            <h2 class="galleryHeader"><span class="ghName"></span><span class="ghRange">{{ rmin }} to {{ rmax }}</span></h2>
+
+        {%- comment -%} run-local range: p is newest (desc sort); scan forward for the run's oldest {%- endcomment -%}
+        {%- assign runmin = p.date -%}
+        {%- assign inrun = true -%}
+        {%- for q in allphotos offset: idx -%}
+            {%- if q.segment -%}{%- assign qkey = q.segment -%}
+            {%- elsif q.trip -%}{%- assign qkey = q.trip -%}
+            {%- elsif q.date -%}{%- assign qkey = "unnamed" -%}
+            {%- else -%}{%- assign qkey = "undated" -%}{%- endif -%}
+            {%- if qkey != key -%}{%- assign inrun = false -%}
+            {%- elsif inrun -%}{%- assign runmin = q.date -%}{%- endif -%}
+        {%- endfor -%}
+        {%- assign rmin = runmin | date: "%m-%d-%Y" -%}
+        {%- assign rmax = p.date | date: "%m-%d-%Y" -%}
+        {%- capture rangehtml -%}{%- if rmin == rmax -%}<span class="ghRange">{{ rmin }}</span>{%- else -%}<span class="ghRange">{{ rmin }} to {{ rmax }}</span>{%- endif -%}{%- endcapture -%}
+
+        {%- if kind == "segment" -%}
+            <h2 class="galleryHeader"><span class="ghName">{{ p.segment }}</span>{{ rangehtml }}</h2>
+        {%- elsif kind == "trip" -%}
+            <h2 class="galleryHeader"><span class="ghName"><a href="/photos/tag/{{ p.trip | slugify }}">{{ p.trip }}</a></span>{{ rangehtml }}</h2>
+        {%- elsif kind == "unnamed" -%}
+            <h2 class="galleryHeader"><span class="ghName"></span>{{ rangehtml }}</h2>
         {%- else -%}
             <h2 class="galleryHeader"><span class="ghName">undated</span></h2>
         {%- endif -%}
