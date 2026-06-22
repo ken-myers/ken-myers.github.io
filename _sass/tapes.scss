@@ -113,8 +113,27 @@
 
 @media (max-width: $breakpoint-xsmall) {
     #tapeListings { font-size: 0.8rem; }
-    .tape { gap: 0.6ch; }
     .tapePager { font-size: 0.8rem; }
+
+    // two lines on a phone: [number  date] over [play  bar  time], so the
+    // progress bar gets a full-width line instead of being crushed between the
+    // metadata and the clock. the single flex row (above) still applies on desktop.
+    .tape {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+            "num  date date"
+            "play bar  time";
+        column-gap: 0.6ch;
+        row-gap: 0.25em;
+    }
+    .tapeNumber  { grid-area: num; }
+    .tapeDate    { grid-area: date; width: auto; }
+    .tapePlay    { grid-area: play; }
+    .tapeBar     { grid-area: bar; }
+    .tapeTime    { grid-area: time; margin-left: 0; }
+    .tapeElapsed { display: none; }   // mobile clock shows total only; the bar carries elapsed
+    .tape audio  { display: none; }   // keep the (controls-less) audio out of the grid
 }
 
 // #tapesBody stretches from below the title to the viewport bottom (min-height set in js),
@@ -143,5 +162,9 @@
 }
 
 @media (max-width: $breakpoint-xsmall) {
-    #boombox { display: none; }   // ascii is too wide for phones
+    // shrink instead of hiding, so the boombox still pins to the bottom and the
+    // pagination reserves room for it (showing fewer tapes). 5px keeps the widest
+    // 75-col wave frame inside even a 320px viewport; width stays 56ch so the body
+    // doesn't jitter horizontally as the waves pulse.
+    #boombox { font-size: 5px; }
 }

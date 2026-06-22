@@ -212,3 +212,10 @@ a{
     font-weight: 500;
     font-family: $monospace-font;
 }
+
+// on a phone the title (60%) + nowrap date (40%) forces the title to wrap hard.
+// drop the date (list is newest-first and numbered) and give the title the row.
+@media (max-width: $breakpoint-xsmall) {
+    .listingDate { display: none; }
+    .listingTitle { width: auto; flex: 1; }
+}

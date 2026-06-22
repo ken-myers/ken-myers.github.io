@@ -17,6 +17,11 @@
     var bar = tape.querySelector(".tapeBar");
     var timeEl = tape.querySelector(".tapeTime");
     if (!audio || !btn || !bar || !timeEl) return;
+    // the clock is split into two spans so mobile can hide the elapsed half
+    // (.tapeElapsed) and show the total alone; both may be absent for tapes with
+    // no known duration.
+    var elapsedEl = tape.querySelector(".tapeElapsed");
+    var totalEl = tape.querySelector(".tapeTotal");
 
     // bar = "[" + fill + rest + "]" ; only the two inner spans change.
     var fill = document.createElement("span");
@@ -70,9 +75,12 @@
       rest.textContent = "·".repeat(cells - filled);
     }
 
-    // always elapsed / total (idle = 0:00 / dur) so the readout never changes width.
+    // desktop shows "elapsed / total" (idle = 00:00 / dur); split across two spans
+    // so mobile can drop the elapsed half. update total always; elapsed only when
+    // its span exists (tapes without a duration render the total alone).
     function renderTime() {
-      timeEl.textContent = fmt(audio.currentTime) + " / " + fmt(dur());
+      if (totalEl) totalEl.textContent = fmt(dur());
+      if (elapsedEl) elapsedEl.textContent = fmt(audio.currentTime) + " / ";
     }
 
     function renderBtn() {

@@ -31,7 +31,7 @@ width: 720
             <span class="tapeDate">{{ tape.date | date: "%m-%d-%Y" }}</span>
             <button class="tapePlay" type="button" aria-label="play">[&#9654;&#65038;]</button>
             <span class="tapeBar" aria-hidden="true"></span>
-            <span class="tapeTime">{% if tape.duration %}00:00 / {% if dmin < 10 %}0{% endif %}{{ dmin }}:{% if dsec < 10 %}0{% endif %}{{ dsec }}{% else %}--:--{% endif %}</span>
+            <span class="tapeTime">{% if tape.duration %}<span class="tapeElapsed">00:00 / </span><span class="tapeTotal">{% if dmin < 10 %}0{% endif %}{{ dmin }}:{% if dsec < 10 %}0{% endif %}{{ dsec }}</span>{% else %}<span class="tapeTotal">--:--</span>{% endif %}</span>
             <audio preload="metadata" src="{{ tape.audio }}"></audio>
         </div>
     {% endfor %}

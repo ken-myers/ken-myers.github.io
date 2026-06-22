@@ -7,6 +7,17 @@ width: 1920px;
 {% include tagNav.html %}
 
 {%- comment -%}
+  Favorites are pinned to the top as a curated set. They are NOT removed from
+  the timeline below — a favorite still shows up in its chronological place too,
+  so the timeline stays complete. The duplication is intentional.
+{%- endcomment -%}
+{%- assign favorites = site.photos | where_exp: "p", "p.tags contains 'favorites'" -%}
+{%- if favorites.size > 0 -%}
+    <h2 class="galleryHeader"><span class="ghName"><a href="/photos/tag/favorites">favorites</a></span></h2>
+    {% include gallery.html photos=favorites %}
+{%- endif -%}
+
+{%- comment -%}
   One chronological pass over every photo (newest first; undated last).
   A new section header is emitted whenever the "key" changes:
     - trip photos   -> key = trip name -> header: name [oldest–newest]
