@@ -7,93 +7,53 @@ width: 1920px;
 {% include tagNav.html %}
 
 {%- comment -%}
-  Favorites are pinned to the top as a curated set. They are NOT removed from
-  the timeline below — a favorite still shows up in its chronological place too,
-  so the timeline stays complete. The duplication is intentional.
-{%- endcomment -%}
-{%- assign favorites = site.photos | where_exp: "p", "p.tags contains 'favorites'" -%}
-{%- if favorites.size > 0 -%}
-    <h2 class="galleryHeader"><span class="ghName"><a href="/photos/tag/favorites">favorites</a></span></h2>
-    {% include gallery.html photos=favorites %}
-{%- endif -%}
+  The main photos page is driven by first-class timeline segments. Each segment
+  lives in _segments and owns a curated list of photo refs:
 
-{%- comment -%}
-  One chronological pass over every photo (newest first; undated last). A new
-  section starts whenever the timeline "key" changes. The key is, in priority:
+    ---
+    id: favorites
+    title: favorites
+    order: 0
+    date_start: 2024-01-01
+    date_end: 2024-12-31
+    photos:
+      - some-photo-slug
+      - another-photo-slug
+    ---
 
-    - segment  -> free-text timeline heading (e.g. "back to nyc again"). This is
-                  a SEPARATE axis from tags/albums: the same place can recur in
-                  the timeline under different segment titles while still living
-                  in one album via its `tags`. Rendered as plain text (a segment
-                  is "not necessarily a tag", so it doesn't link anywhere).
-    - trip     -> legacy named trip; rendered as a heading linking to its album.
-    - (dated)  -> key "unnamed": a contiguous run of loose dated photos; range
-                  only, no title.
-    - (undated)-> key "undated": no date; sorts last; header "undated".
-
-  Each section's date range is computed from ITS OWN contiguous run (forward-scan
-  the sorted list until the key changes) — not from every photo sharing the name,
-  so a place that recurs shows the right span each time. A run that lives on a
-  single day (a day trip) shows just that one date, not "date to date".
+  Segment photo refs may match a photo's `photo_id`, `slug`, or generated `id`.
+  Tags remain independent: the same photo can be listed in a segment and still
+  appear on /photos/tag/favorites via its `tags`.
 {%- endcomment -%}
 
-{%- assign allphotos = site.photos | sort: "date" | reverse -%}
-{%- assign prevkey = "" -%}
-{%- for p in allphotos -%}
-    {%- assign idx = forloop.index -%}
-    {%- assign isfirst = forloop.first -%}
-    {%- assign islast = forloop.last -%}
-
-    {%- if p.segment -%}
-        {%- assign key = p.segment -%}
-        {%- assign kind = "segment" -%}
-    {%- elsif p.trip -%}
-        {%- assign key = p.trip -%}
-        {%- assign kind = "trip" -%}
-    {%- elsif p.date -%}
-        {%- assign key = "unnamed" -%}
-        {%- assign kind = "unnamed" -%}
-    {%- else -%}
-        {%- assign key = "undated" -%}
-        {%- assign kind = "undated" -%}
-    {%- endif -%}
-
-    {%- if key != prevkey -%}
-        {%- unless isfirst %}</div>{% endunless -%}
-
-        {%- comment -%} run-local range: p is newest (desc sort); scan forward for the run's oldest {%- endcomment -%}
-        {%- assign runmin = p.date -%}
-        {%- assign inrun = true -%}
-        {%- for q in allphotos offset: idx -%}
-            {%- if q.segment -%}{%- assign qkey = q.segment -%}
-            {%- elsif q.trip -%}{%- assign qkey = q.trip -%}
-            {%- elsif q.date -%}{%- assign qkey = "unnamed" -%}
-            {%- else -%}{%- assign qkey = "undated" -%}{%- endif -%}
-            {%- if qkey != key -%}{%- assign inrun = false -%}
-            {%- elsif inrun -%}{%- assign runmin = q.date -%}{%- endif -%}
-        {%- endfor -%}
-        {%- assign rmin = runmin | date: "%m-%d-%Y" -%}
-        {%- assign rmax = p.date | date: "%m-%d-%Y" -%}
-        {%- capture rangehtml -%}{%- if rmin == rmax -%}<span class="ghRange">{{ rmin }}</span>{%- else -%}<span class="ghRange">{{ rmin }} to {{ rmax }}</span>{%- endif -%}{%- endcapture -%}
-
-        {%- if kind == "segment" -%}
-            <h2 class="galleryHeader"><span class="ghName">{{ p.segment }}</span>{{ rangehtml }}</h2>
-        {%- elsif kind == "trip" -%}
-            <h2 class="galleryHeader"><span class="ghName"><a href="/photos/tag/{{ p.trip | slugify }}">{{ p.trip }}</a></span>{{ rangehtml }}</h2>
-        {%- elsif kind == "unnamed" -%}
-            <h2 class="galleryHeader"><span class="ghName"></span>{{ rangehtml }}</h2>
-        {%- else -%}
-            <h2 class="galleryHeader"><span class="ghName">undated</span></h2>
+{%- assign segments = site.segments | sort: "order" -%}
+{%- for segment in segments -%}
+    {%- assign segment_photos = "" | split: "" -%}
+    {%- for photo_ref in segment.photos -%}
+        {%- assign matches = site.photos | where: "photo_id", photo_ref -%}
+        {%- if matches.size == 0 -%}
+            {%- assign matches = site.photos | where: "slug", photo_ref -%}
         {%- endif -%}
-        <div class="gallery">
-        {%- assign prevkey = key -%}
+        {%- if matches.size == 0 -%}
+            {%- assign matches = site.photos | where: "id", photo_ref -%}
+        {%- endif -%}
+        {%- assign segment_photos = segment_photos | concat: matches -%}
+    {%- endfor -%}
+
+    {%- if segment_photos.size > 0 -%}
+        {%- capture rangehtml -%}
+            {%- if segment.date_start and segment.date_end -%}
+                {%- assign rmin = segment.date_start | date: "%m-%d-%Y" -%}
+                {%- assign rmax = segment.date_end | date: "%m-%d-%Y" -%}
+                {%- if rmin == rmax -%}<span class="ghRange">{{ rmin }}</span>{%- else -%}<span class="ghRange">{{ rmin }} to {{ rmax }}</span>{%- endif -%}
+            {%- elsif segment.date -%}
+                <span class="ghRange">{{ segment.date | date: "%m-%d-%Y" }}</span>
+            {%- endif -%}
+        {%- endcapture -%}
+
+        <h2 class="galleryHeader"><span class="ghName">{{ segment.title | default: segment.id }}</span>{{ rangehtml }}</h2>
+        {% include gallery.html photos=segment_photos preserve_order=true %}
     {%- endif -%}
-
-    <div class="photo" style="--width: {{ p.width }}; --height: {{ p.height }};">
-        <img class="clickToModal photoImg" src="{{ p.preview_src | default: p.src }}" fullSrc="{{ p.src }}" alt="{{ p.caption }}" />
-    </div>
-
-    {%- if islast %}</div>{% endif -%}
 {%- endfor -%}
 
 {% include modal.html %}

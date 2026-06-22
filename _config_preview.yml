@@ -6,6 +6,7 @@ permalink: /posts/:slug
 
 collections:
   photos:
+  segments:
   portfolio:
   tapes:
   albums:
