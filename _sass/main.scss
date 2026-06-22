@@ -159,6 +159,16 @@ body{
     margin: 0 17px;
 }
 
+// space the listing rows apart so they don't run together (mobile + desktop),
+// and hold the text off the viewport edges (the 17px marginWrapper alone reads
+// too tight on narrow screens).
+#postListings{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0 0.75rem;
+}
+
 .postListing{
     text-align: left;
     display:flex;
