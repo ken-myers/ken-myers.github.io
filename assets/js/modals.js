@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var modalLoadToken = 0;
 	var modalBodyState = null;
-	var modalLoadingEffects = [
+	var loadingEffects = [
 		'memoryDecay',
 		'trackingError',
 		'datamoshBlocks',
@@ -10,25 +10,67 @@ $(document).ready(function() {
 	];
 
 	function chooseModalLoadingEffect() {
-		return modalLoadingEffects[Math.floor(Math.random() * modalLoadingEffects.length)];
+		return loadingEffects[Math.floor(Math.random() * loadingEffects.length)];
 	}
 
 	function clearModalLoadingEffect() {
 		$('#modalImageShell')
-			.removeClass('loadingFullImage ' + modalLoadingEffects.join(' '))
+			.removeClass('loadingFullImage ' + loadingEffects.join(' '))
 			.css('--modal-placeholder-src', '');
 	}
 
 	function setModalPlaceholderSource(src) {
+		var placeholderSrc = src || '';
+
+		if(placeholderSrc && placeholderSrc.indexOf('url(') !== 0){
+			placeholderSrc = 'url("' + placeholderSrc.replace(/"/g, '\\"') + '")';
+		}
+
 		document.getElementById('modalImageShell').style.setProperty(
 			'--modal-placeholder-src',
-			'url("' + src.replace(/"/g, '\\"') + '")'
+			placeholderSrc
 		);
 	}
 
+	function imageSrcFromCssUrl(cssUrl) {
+		var matches = (cssUrl || '').trim().match(/^url\((['"]?)(.*)\1\)$/);
+		return matches ? matches[2] : '';
+	}
+
+	function getPhotoPlaceholderSource(image) {
+		var photo = $(image).closest('.photo').get(0);
+
+		if(!photo) return '';
+
+		return window.getComputedStyle(photo).getPropertyValue('--placeholder-src').trim();
+	}
+
+	function initGalleryPlaceholders() {
+		$('.photo.loadingPreview').each(function() {
+			var photo = $(this);
+			var image = photo.find('img.photoImg').get(0);
+
+			photo.addClass(chooseModalLoadingEffect());
+
+			if(!image) return;
+
+			if(image.complete && image.naturalWidth){
+				photo.removeClass('loadingPreview ' + loadingEffects.join(' '));
+				return;
+			}
+
+			$(image).one('load error', function() {
+				photo.removeClass('loadingPreview ' + loadingEffects.join(' '));
+			});
+		});
+	}
+
+	initGalleryPlaceholders();
+
 	$(".clickToModal").on("click", function() {
 		var previewSrc = $(this).attr("src");
-		var pixelSrc = $(this).attr("pixelSrc") || previewSrc;
+		var placeholderSrc = getPhotoPlaceholderSource(this);
+		var placeholderImageSrc = imageSrcFromCssUrl(placeholderSrc) || previewSrc;
 		var intrinsicWidth = parseFloat($(this).attr("width")) || this.naturalWidth;
 		var intrinsicHeight = parseFloat($(this).attr("height")) || this.naturalHeight;
 
@@ -66,18 +108,18 @@ $(document).ready(function() {
 
 		if(previewSrc && previewSrc != imgSrc){
 			clearModalLoadingEffect();
-			setModalPlaceholderSource(pixelSrc);
+			setModalPlaceholderSource(placeholderSrc || previewSrc);
 			$('#modalImageShell').addClass('loadingFullImage ' + chooseModalLoadingEffect());
 
 			$('#modalImage')
 				.off('error.pixelPlaceholder')
 				.one('error.pixelPlaceholder', function() {
-					if(loadToken == modalLoadToken && pixelSrc != previewSrc){
+					if(loadToken == modalLoadToken && placeholderImageSrc != previewSrc){
 						$(this).attr('src', previewSrc);
 						setModalPlaceholderSource(previewSrc);
 					}
 				})
-				.attr('src', pixelSrc);
+				.attr('src', placeholderImageSrc);
 
 			var swapFullImage = function() {
 				if(loadToken != modalLoadToken) return;

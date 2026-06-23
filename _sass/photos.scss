@@ -101,8 +101,115 @@
   aspect-ratio: var(--width) / var(--height);
   position: relative;
   overflow: hidden;
+  background-color: #f3f3f3;
+  background-image: var(--placeholder-src);
+  background-size: cover;
+  background-position: center;
   margin: 0 !important; /* We use !important to avoid gaps in some environments. */
   padding: 0 !important; 
+    }
+
+    .photo.loadingPreview{
+        isolation: isolate;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+
+        &::before,
+        &::after{
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: var(--placeholder-src);
+            background-size: cover;
+            background-position: center;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+        }
+
+        &::before{
+            z-index: 1;
+        }
+
+        &::after{
+            z-index: 2;
+        }
+
+        img{
+            z-index: 3;
+            opacity: 0;
+        }
+    }
+
+    .photo.loadingPreview.memoryDecay{
+        animation: memoryDecayBase 2.4s steps(8, end) infinite;
+
+        &::before{
+            filter: invert(0.25) contrast(2) saturate(0.4);
+            mix-blend-mode: difference;
+            animation: memoryDecayA 2.4s steps(8, end) infinite;
+        }
+
+        &::after{
+            background:
+                linear-gradient(90deg, rgba(0,0,0,0.62), rgba(0,0,0,0.62)) 0 18% / 100% 8% no-repeat,
+                linear-gradient(90deg, rgba(255,255,255,0.28), rgba(255,255,255,0.28)) 0 51% / 100% 6% no-repeat,
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.18) 0 1px, transparent 1px 8px);
+            mix-blend-mode: hard-light;
+            animation: memoryDecayTear 2.4s steps(8, end) infinite;
+        }
+    }
+
+    .photo.loadingPreview.trackingError::after{
+        background:
+            linear-gradient(180deg, transparent 0 12%, rgba(255,255,255,0.55) 12% 17%, transparent 17% 100%),
+            linear-gradient(180deg, transparent 0 64%, rgba(0,0,0,0.34) 64% 70%, transparent 70% 100%),
+            repeating-linear-gradient(180deg, rgba(255,255,255,0.12) 0 1px, transparent 1px 6px);
+        mix-blend-mode: overlay;
+        animation: trackingError 1.45s steps(5, end) infinite;
+    }
+
+    .photo.loadingPreview.datamoshBlocks{
+        animation: datamoshBase 2s steps(6, end) infinite;
+
+        &::before{
+            filter: contrast(1.7) saturate(0.7);
+            mix-blend-mode: hard-light;
+            animation: moshA 2s steps(7, end) infinite;
+        }
+
+        &::after{
+            background:
+                linear-gradient(90deg, rgba(255,255,255,0.28), rgba(255,255,255,0.28)) 12% 18% / 34% 15% no-repeat,
+                linear-gradient(90deg, rgba(0,0,0,0.36), rgba(0,0,0,0.36)) 62% 40% / 28% 22% no-repeat,
+                linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,255,255,0.22)) 28% 72% / 52% 11% no-repeat;
+            mix-blend-mode: difference;
+            animation: datamoshBlocks 2s steps(7, end) infinite;
+        }
+    }
+
+    .photo.loadingPreview.staticPulse::after{
+        background:
+            repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,0.9), rgba(0,0,0,0.62) 0.00085px),
+            repeating-conic-gradient(rgba(255,255,255,0.32), rgba(0,0,0,0.4) 0.00085turn);
+        background-size: 100% 100%, 78% 81%;
+        mix-blend-mode: overlay;
+        animation: staticPulse 0.7s steps(3, end) infinite;
+    }
+
+    .photo.loadingPreview.crtDamage{
+        box-shadow:
+            4px 0 0 rgba(255, 60, 78, 0.28),
+            -4px 0 0 rgba(0, 217, 255, 0.26);
+        animation: crtDamageBase 1.8s steps(4, end) infinite;
+
+        &::after{
+            background:
+                repeating-linear-gradient(180deg, transparent 0 2px, rgba(0,0,0,0.46) 2px 4px),
+                repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,0.5), rgba(0,0,0,0.25) 0.00085px);
+            mix-blend-mode: overlay;
+            animation: scanlineNoise 0.16s steps(2, end) infinite;
+        }
     }
 
     &::after{

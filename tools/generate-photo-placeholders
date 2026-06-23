@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "base64"
+require "fileutils"
+
+root = File.expand_path("..", __dir__)
+pixel_dir = File.join(root, "generated-pixels", "24")
+output_path = File.join(root, "assets", "css", "photo-placeholders.scss")
+
+unless Dir.exist?(pixel_dir)
+  abort "Missing pixel directory: #{pixel_dir}"
+end
+
+entries = Dir[File.join(pixel_dir, "*.webp")].sort.map do |path|
+  slug = File.basename(path, ".webp")
+  data = Base64.strict_encode64(File.binread(path))
+  ".ph-#{slug}{--placeholder-src:\#{\"url(\\\"data:image/webp;base64,#{data}\\\")\"};}"
+end
+
+FileUtils.mkdir_p(File.dirname(output_path))
+File.write(output_path, "---\n---\n\n#{entries.join("\n")}\n")
+
+puts "Wrote #{entries.size} placeholders to #{output_path}"

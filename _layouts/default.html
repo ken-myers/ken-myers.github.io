@@ -30,6 +30,9 @@
     <!-- ****** faviconit.com favicons ****** -->
 
     <link rel="stylesheet" href="/assets/css/styles.css">
+    {% if page.photo_placeholders or layout.photo_placeholders %}
+      <link rel="stylesheet" href="/assets/css/photo-placeholders.css">
+    {% endif %}
 
     {% if page.latex or layout.latex%}
       <link rel="stylesheet" href="/assets/css/latex.css">
