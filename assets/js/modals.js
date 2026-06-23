@@ -18,6 +18,12 @@ $(document).ready(function() {
 		if(previewSrc && previewSrc != imgSrc){
 			$('#modalImage')
 				.addClass('loadingFullImage')
+				.off('error.pixelPlaceholder')
+				.one('error.pixelPlaceholder', function() {
+					if(loadToken == modalLoadToken && pixelSrc != previewSrc){
+						$(this).attr('src', previewSrc);
+					}
+				})
 				.attr('src', pixelSrc);
 
 			var swapFullImage = function() {
@@ -39,6 +45,7 @@ $(document).ready(function() {
 		}else{
 			$('#modalImage')
 				.removeClass('loadingFullImage')
+				.off('error.pixelPlaceholder')
 				.attr('src', imgSrc);
 		}
 
@@ -52,7 +59,9 @@ $(document).ready(function() {
 		if(e.target==this){
 			$("#modalBackdrop").css('display','none')
 			modalLoadToken += 1;
-			$('#modalImage').removeClass('loadingFullImage');
+			$('#modalImage')
+				.removeClass('loadingFullImage')
+				.off('error.pixelPlaceholder');
 			$('body').css('padding-right','-='+scrollWidth)
 			$('body').css('overflow', 'auto');
 		}
