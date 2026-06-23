@@ -5,7 +5,8 @@ photo_placeholders: true
 ---
 {% include tagNav.html %}
 
-{% assign filtered_photos = site.photos | where_exp:"photo", "photo.tags contains page.title or photo.trip == page.title" %}
+{% assign tag_slug = page.slug | default: page.title %}
+{% assign filtered_photos = site.photos | where_exp:"photo", "photo.tags contains page.title or photo.tags contains tag_slug or photo.trip == page.title or photo.trip == tag_slug" %}
 <div class="tagPageGallery">
 {% include gallery.html photos=filtered_photos %}
 </div>
