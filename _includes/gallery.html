@@ -7,7 +7,6 @@
     {% assign sorted_dated = dated_photos | sort:"date" | reverse %}
     {% assign sorted_photos = sorted_dated | concat: undated_photos %}
     {% endif %}
-    {% assign eager_count = include.eager_count | default: 0 %}
 	{% for photo in sorted_photos %}
 	<div
 		class="photo"
@@ -25,7 +24,6 @@
 			width="{{ photo.width }}"
 			height="{{ photo.height }}"
 			decoding="async"
-			{% if forloop.index > eager_count %}loading="lazy"{% endif %}
 		/>
 	</div>
 	{% endfor %}

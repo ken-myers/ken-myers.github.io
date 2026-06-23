@@ -25,7 +25,6 @@ width: 1920px;
 {%- endcomment -%}
 
 {%- assign segments = site.segments | sort: "order" -%}
-{%- assign eager_remaining = 20 -%}
 {%- for segment in segments -%}
     {%- assign segment_photos = "" | split: "" -%}
     {%- for photo_ref in segment.photos -%}
@@ -41,10 +40,7 @@ width: 1920px;
 
     {%- if segment_photos.size > 0 -%}
         <h2 class="galleryHeader"><span class="ghName">{{ segment.title | default: segment.id }}</span></h2>
-        {%- assign eager_count = eager_remaining -%}
-        {%- if eager_count < 0 -%}{%- assign eager_count = 0 -%}{%- endif -%}
-        {% include gallery.html photos=segment_photos preserve_order=true eager_count=eager_count %}
-        {%- assign eager_remaining = eager_remaining | minus: segment_photos.size -%}
+        {% include gallery.html photos=segment_photos preserve_order=true %}
     {%- endif -%}
 {%- endfor -%}
 

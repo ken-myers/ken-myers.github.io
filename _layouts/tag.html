@@ -6,7 +6,7 @@ width: 1920px;
 
 {% assign filtered_photos = site.photos | where_exp:"photo", "photo.tags contains page.title or photo.trip == page.title" %}
 <div class="tagPageGallery">
-{% include gallery.html photos=filtered_photos eager_count=20 %}
+{% include gallery.html photos=filtered_photos %}
 </div>
 
 {% include modal.html %}
