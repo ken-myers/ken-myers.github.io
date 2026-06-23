@@ -4,5 +4,5 @@ preview_src: https://static.kenmyers.io/photos/previews/dad6f96a-d19e-4e8a-afe1-
 width: 5244
 height: 3029
 date: 2022-06-21T07:40:23
-tags: [turkey]
+tags: [people, turkey]
 ---

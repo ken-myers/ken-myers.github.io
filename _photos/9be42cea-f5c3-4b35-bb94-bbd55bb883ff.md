@@ -4,5 +4,5 @@ preview_src: https://static.kenmyers.io/photos/previews/9be42cea-f5c3-4b35-bb94-
 width: 4342
 height: 2229
 date: 2025-03-03T03:53:17
-tags: [new-mexico]
+tags: [animals, new-mexico]
 ---
