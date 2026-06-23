@@ -14,8 +14,6 @@ width: 1920px;
     id: favorites
     title: favorites
     order: 0
-    date_start: 2024-01-01
-    date_end: 2024-12-31
     photos:
       - some-photo-slug
       - another-photo-slug
@@ -27,6 +25,7 @@ width: 1920px;
 {%- endcomment -%}
 
 {%- assign segments = site.segments | sort: "order" -%}
+{%- assign eager_remaining = 20 -%}
 {%- for segment in segments -%}
     {%- assign segment_photos = "" | split: "" -%}
     {%- for photo_ref in segment.photos -%}
@@ -41,18 +40,11 @@ width: 1920px;
     {%- endfor -%}
 
     {%- if segment_photos.size > 0 -%}
-        {%- capture rangehtml -%}
-            {%- if segment.date_start and segment.date_end -%}
-                {%- assign rmin = segment.date_start | date: "%m-%d-%Y" -%}
-                {%- assign rmax = segment.date_end | date: "%m-%d-%Y" -%}
-                {%- if rmin == rmax -%}<span class="ghRange">{{ rmin }}</span>{%- else -%}<span class="ghRange">{{ rmin }} to {{ rmax }}</span>{%- endif -%}
-            {%- elsif segment.date -%}
-                <span class="ghRange">{{ segment.date | date: "%m-%d-%Y" }}</span>
-            {%- endif -%}
-        {%- endcapture -%}
-
-        <h2 class="galleryHeader"><span class="ghName">{{ segment.title | default: segment.id }}</span>{{ rangehtml }}</h2>
-        {% include gallery.html photos=segment_photos preserve_order=true %}
+        <h2 class="galleryHeader"><span class="ghName">{{ segment.title | default: segment.id }}</span></h2>
+        {%- assign eager_count = eager_remaining -%}
+        {%- if eager_count < 0 -%}{%- assign eager_count = 0 -%}{%- endif -%}
+        {% include gallery.html photos=segment_photos preserve_order=true eager_count=eager_count %}
+        {%- assign eager_remaining = eager_remaining | minus: segment_photos.size -%}
     {%- endif -%}
 {%- endfor -%}
 

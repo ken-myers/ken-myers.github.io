@@ -18,6 +18,17 @@
   max-width: 90%;
 }
 
+#modalImage.loadingFullImage{
+  width: 90vw;
+  height: 87vh;
+  max-width: 90%;
+  max-height: 87%;
+  object-fit: contain;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  filter: contrast(1.15) saturate(0.9);
+}
+
 #modalNewTabLink{
   display:flex;
   color: #9c9c9c;

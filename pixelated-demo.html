@@ -1,0 +1,103 @@
+---
+layout: page
+title: pixelated demo
+permalink: /pixelated-demo/
+width: 1000px;
+---
+
+{% assign demo_photo = site.photos | first %}
+
+{% if demo_photo %}
+<style>
+    .pixelDemo {
+        --demo-gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--demo-gap);
+        margin: 2.5em 21px 0;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+    }
+
+    .pixelDemoPanel {
+        min-width: 0;
+    }
+
+    .pixelDemoLabel {
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+
+    .pixelDemoFrame {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: {{ demo_photo.width }} / {{ demo_photo.height }};
+        background: #eee;
+        overflow: hidden;
+    }
+
+    .pixelDemoFrame img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .pixelDemoPixel {
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+        filter: contrast(1.15) saturate(0.9);
+    }
+
+    @media (max-width: 900px) {
+        .pixelDemo {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 520px) {
+        .pixelDemo {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="pixelDemo">
+    <div class="pixelDemoPanel">
+        <div class="pixelDemoLabel">preview</div>
+        <div class="pixelDemoFrame">
+            <img id="pixelDemoPreview" src="{{ demo_photo.preview_src | default: demo_photo.src }}" alt="">
+        </div>
+    </div>
+
+    {% if demo_photo.pixel_src_24 %}
+    <div class="pixelDemoPanel">
+        <div class="pixelDemoLabel">24px</div>
+        <div class="pixelDemoFrame">
+            <img class="pixelDemoPixel" src="{{ demo_photo.pixel_src_24 }}" alt="">
+        </div>
+    </div>
+    {% endif %}
+
+    {% if demo_photo.pixel_src_32 %}
+    <div class="pixelDemoPanel">
+        <div class="pixelDemoLabel">32px</div>
+        <div class="pixelDemoFrame">
+            <img class="pixelDemoPixel" src="{{ demo_photo.pixel_src_32 }}" alt="">
+        </div>
+    </div>
+    {% endif %}
+
+    {% if demo_photo.pixel_src_64 %}
+    <div class="pixelDemoPanel">
+        <div class="pixelDemoLabel">64px</div>
+        <div class="pixelDemoFrame">
+            <img class="pixelDemoPixel" src="{{ demo_photo.pixel_src_64 }}" alt="">
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% else %}
+<p>No photos are available for the pixelated demo.</p>
+{% endif %}

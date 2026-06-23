@@ -7,6 +7,7 @@
     {% assign sorted_dated = dated_photos | sort:"date" | reverse %}
     {% assign sorted_photos = sorted_dated | concat: undated_photos %}
     {% endif %}
+    {% assign eager_count = include.eager_count | default: 0 %}
 	{% for photo in sorted_photos %}
 	<div
 		class="photo"
@@ -16,7 +17,15 @@
 			class="clickToModal photoImg"
 			src="{{ photo.preview_src | default: photo.src }}"
 			fullSrc="{{photo.src}}"
+			{% if photo.pixel_src %}pixelSrc="{{ photo.pixel_src }}"{% endif %}
+			{% if photo.pixel_src_24 %}pixelSrc24="{{ photo.pixel_src_24 }}"{% endif %}
+			{% if photo.pixel_src_32 %}pixelSrc32="{{ photo.pixel_src_32 }}"{% endif %}
+			{% if photo.pixel_src_64 %}pixelSrc64="{{ photo.pixel_src_64 }}"{% endif %}
 			alt="{{ photo.caption }}"
+			width="{{ photo.width }}"
+			height="{{ photo.height }}"
+			decoding="async"
+			{% if forloop.index > eager_count %}loading="lazy"{% endif %}
 		/>
 	</div>
 	{% endfor %}

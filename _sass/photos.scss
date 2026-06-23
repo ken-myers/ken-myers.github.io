@@ -1,15 +1,45 @@
 @import "constants";
 
 .tagNav {
+    box-sizing: border-box;
+    max-width: 700px;
+    padding: 0 21px;
+    margin: 0.75em auto 0;
+
     text-align: center;
     font-family: $monospace-font;
     font-size: 0.8rem;
-    margin-top: 0.75em;
+}
+
+.tagNavItems {
+    --separator-gap: 1.45em;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.25em;
+    column-gap: var(--separator-gap);
 
     a {
+        position: relative;
+        white-space: nowrap;
         color: black;
         text-decoration: none;
         &:hover { text-decoration: underline; }
+
+        &::before {
+            content: "·";
+            position: absolute;
+            top: 50%;
+            left: calc(var(--separator-gap) / -2);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        &:first-child::before,
+        &.is-row-start::before {
+            content: none;
+        }
     }
 }
 
@@ -79,8 +109,19 @@
         content: " ";
         flex-grow: 999999;
     }
+
     // width: fit-content;
     // max-width: 1000px;
     // justify-content: space-between;
     // margin: 0 auto;
+}
+
+.tagPageGallery .gallery {
+    margin-top: 4.5em;
+}
+
+@media (max-width: 700px) {
+    .gallery.loneLastRow::after {
+        content: none;
+    }
 }

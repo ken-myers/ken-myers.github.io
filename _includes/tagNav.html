@@ -3,6 +3,45 @@
 {% assign nav = chrono | concat: normal %}
 {% if nav.size > 0 %}
 <nav class="tagNav">
-<a href="/photos/">all</a>{% for album in nav %} &middot; <a href="{{ album.url }}">{{ album.title }}</a>{% endfor %}
+    <div class="tagNavItems">
+        <a href="/photos/">all</a>{% for album in nav %}<a href="{{ album.url }}">{{ album.title }}</a>{% endfor %}
+    </div>
 </nav>
+<script>
+(() => {
+    const navItems = document.querySelectorAll(".tagNavItems");
+    if (!navItems.length) return;
+
+    const updateRows = (items) => {
+        const links = Array.from(items.querySelectorAll("a"));
+        let rowTop = null;
+
+        links.forEach((link) => {
+            const top = link.offsetTop;
+            const isRowStart = rowTop === null || Math.abs(top - rowTop) > 1;
+
+            link.classList.toggle("is-row-start", isRowStart);
+            if (isRowStart) rowTop = top;
+        });
+    };
+
+    const scheduleUpdate = (items) => {
+        window.requestAnimationFrame(() => updateRows(items));
+    };
+
+    navItems.forEach((items) => {
+        scheduleUpdate(items);
+
+        if ("ResizeObserver" in window) {
+            new ResizeObserver(() => scheduleUpdate(items)).observe(items);
+        } else {
+            window.addEventListener("resize", () => scheduleUpdate(items));
+        }
+
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => scheduleUpdate(items));
+        }
+    });
+})();
+</script>
 {% endif %}
