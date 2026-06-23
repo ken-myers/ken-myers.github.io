@@ -1,7 +1,7 @@
 ---
 id: new-mexico
 title: "new mexico"
-order: 4
+order: 5
 date_start: 2025-07-03
 date_end: 2025-07-06
 photos:

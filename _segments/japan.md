@@ -1,7 +1,7 @@
 ---
 id: japan
 title: "japan"
-order: 3
+order: 4
 date_start: 2025-07-26
 date_end: 2025-08-05
 photos:
@@ -17,4 +17,5 @@ photos:
   - 203cffa0-32bd-44eb-b6e6-ce645590ec24
   - e787a0d9-50a7-46d2-8ff8-060068d82a7b
   - 6165f18a-104b-4a47-8dbd-380c48e4d87d
+  - 1c410989-3e8a-4d6d-aa17-b2d4f3b36287
 ---

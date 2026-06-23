@@ -1,7 +1,7 @@
 ---
 id: chicago-2022
 title: "chicago 2022"
-order: 11
+order: 12
 date_start: 2022-06-27
 date_end: 2022-07-03
 photos:

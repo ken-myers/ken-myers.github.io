@@ -1,7 +1,7 @@
 ---
 id: nyc
 title: "nyc"
-order: 7
+order: 8
 date_start: 2024-06-07
 date_end: 2024-08-12
 photos:

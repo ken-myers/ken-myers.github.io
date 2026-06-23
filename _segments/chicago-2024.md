@@ -1,8 +1,9 @@
 ---
 id: chicago-2024
 title: "chicago 2025"
-order: 5
-date: 2025-06-27
+order: 6
+date_start: 2025-06-27
+date_end: 2025-06-29
 photos:
   - 82c5075e-6b7c-4ecd-9b2c-17e14cd8bb21
   - 7fecdffd-718f-418a-acab-1f360be7185c

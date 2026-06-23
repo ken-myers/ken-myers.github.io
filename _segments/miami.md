@@ -1,7 +1,7 @@
 ---
 id: miami
 title: "miami"
-order: 6
+order: 7
 date_start: 2025-05-01
 date_end: 2025-05-03
 photos:

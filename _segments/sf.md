@@ -1,8 +1,9 @@
 ---
 id: sf
 title: "sf"
-order: 0
-date: 2026-04-10
+order: 1
+date_start: 2026-04-10
+date_end: 2026-04-16
 photos:
   - 97276b85-4ac4-40ca-b2a9-570d7f305a1a
   - 48cab164-a22c-46e9-bc3a-fbcd9910215c
@@ -16,5 +17,4 @@ photos:
   - d320f95e-2c48-4cc3-b100-b19010954a75
   - e6e0bd7c-9127-479c-9a5c-31b387cf43a2
   - d14be8d5-0712-47ba-9df1-1177c9b1b391
-  - 1c410989-3e8a-4d6d-aa17-b2d4f3b36287
 ---
