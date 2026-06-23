@@ -50,17 +50,34 @@ $(document).ready(function() {
 			var photo = $(this);
 			var image = photo.find('img.photoImg').get(0);
 
+			function clearPreviewLoadingState() {
+				photo.removeClass('loadingPreview ' + loadingEffects.join(' '));
+			}
+
+			function clearAfterDecode() {
+				if(!image.naturalWidth){
+					clearPreviewLoadingState();
+					return;
+				}
+
+				if(image.decode){
+					image.decode().then(clearPreviewLoadingState).catch(clearPreviewLoadingState);
+				}else{
+					clearPreviewLoadingState();
+				}
+			}
+
 			photo.addClass(chooseModalLoadingEffect());
 
 			if(!image) return;
 
 			if(image.complete && image.naturalWidth){
-				photo.removeClass('loadingPreview ' + loadingEffects.join(' '));
+				clearAfterDecode();
 				return;
 			}
 
 			$(image).one('load error', function() {
-				photo.removeClass('loadingPreview ' + loadingEffects.join(' '));
+				clearAfterDecode();
 			});
 		});
 	}
