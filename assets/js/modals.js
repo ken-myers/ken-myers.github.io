@@ -71,7 +71,7 @@ $(document).ready(function() {
 
 			if(!image) return;
 
-			if(image.complete && image.naturalWidth){
+			if(image.complete){
 				clearAfterDecode();
 				return;
 			}
