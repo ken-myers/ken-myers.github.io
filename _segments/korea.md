@@ -1,0 +1,21 @@
+---
+id: korea
+title: "korea"
+order: 10
+date_start: 2024-05-15
+date_end: 2024-05-30
+photos:
+  - 8d8ae2e4-9ba2-4d18-a421-db866e1cd03d
+  - 02596aaf-4752-4ef1-abce-72b607317a5d
+  - b41d44f5-cdbe-4243-a98a-821597fafd95
+  - a3e65a30-b823-4cfe-8315-808d9229a7b4
+  - 2182a8b4-6eb8-4048-8ce4-92f2128c7c44
+  - 571d5abb-9307-4d44-8467-b5341c5f0954
+  - 7d3f2058-c095-4e98-88d7-2dc730e64b6c
+  - 7e74feb6-2e9c-46dc-9690-f0ea49093dbb
+  - 2f2de58e-ca66-46c2-a09f-4a6a5372c953
+  - 3dd65cb1-79d9-46b9-ba03-c62e2beab32f
+  - 5262140b-ae05-4243-b197-d0fd19106a72
+  - 466eb859-b6af-4d16-a4e4-561e038acd6e
+  - 4449f900-13f9-4e1a-b264-4cd2a99a39a7
+---
