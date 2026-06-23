@@ -12,21 +12,264 @@
   flex-direction: column;
 }
 
-#modalImage{
-  display: flex;
+#modalImageShell{
+  position: relative;
+  display: inline-block;
+  line-height: 0;
   max-height: 87%;
   max-width: 90%;
+  overflow: hidden;
+  isolation: isolate;
+  background: transparent;
 }
 
-#modalImage.loadingFullImage{
-  width: 90vw;
-  height: 87vh;
-  max-width: 90%;
-  max-height: 87%;
+#modalImageShell.loadingFullImage{
+  background: #111111;
+}
+
+#modalImage{
+  display: block;
+  max-height: 87vh;
+  max-width: 90vw;
+  object-fit: contain;
+  background: transparent;
+}
+
+#modalImageShell.loadingFullImage #modalImage{
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
-  filter: contrast(1.15) saturate(0.9);
+}
+
+.modalGlitchLayer,
+.modalTearLayer,
+.modalNoiseLayer{
+  content: "";
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.modalGlitchLayer{
+  background: var(--modal-placeholder-src) center / cover no-repeat;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.modalGlitchLayer.layerA{
+  z-index: 2;
+}
+
+.modalGlitchLayer.layerB{
+  z-index: 3;
+}
+
+.modalTearLayer{
+  z-index: 4;
+}
+
+.modalNoiseLayer{
+  z-index: 5;
+}
+
+#modalImageShell.memoryDecay .modalGlitchLayer.layerA,
+#modalImageShell.memoryDecay .modalGlitchLayer.layerB,
+#modalImageShell.memoryDecay .modalTearLayer,
+#modalImageShell.memoryDecay .modalNoiseLayer,
+#modalImageShell.trackingError .modalTearLayer,
+#modalImageShell.datamoshBlocks .modalGlitchLayer.layerA,
+#modalImageShell.datamoshBlocks .modalGlitchLayer.layerB,
+#modalImageShell.datamoshBlocks .modalTearLayer,
+#modalImageShell.datamoshBlocks .modalNoiseLayer,
+#modalImageShell.staticPulse .modalNoiseLayer,
+#modalImageShell.crtDamage .modalNoiseLayer{
+  display: block;
+}
+
+#modalImageShell.memoryDecay #modalImage{
+  animation: memoryDecayBase 2.4s steps(8, end) infinite;
+}
+
+#modalImageShell.memoryDecay .modalGlitchLayer.layerA{
+  filter: invert(0.25) contrast(2) saturate(0.4);
+  mix-blend-mode: difference;
+  animation: memoryDecayA 2.4s steps(8, end) infinite;
+}
+
+#modalImageShell.memoryDecay .modalGlitchLayer.layerB{
+  filter: grayscale(1) contrast(2);
+  mix-blend-mode: multiply;
+  animation: memoryDecayB 1.6s steps(6, end) infinite;
+}
+
+#modalImageShell.memoryDecay .modalTearLayer{
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.62), rgba(0,0,0,0.62)) 0 18% / 100% 8% no-repeat,
+    linear-gradient(90deg, rgba(255,255,255,0.28), rgba(255,255,255,0.28)) 0 51% / 100% 6% no-repeat;
+  mix-blend-mode: hard-light;
+  animation: memoryDecayTear 2.4s steps(8, end) infinite;
+}
+
+#modalImageShell.memoryDecay .modalNoiseLayer{
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.18) 0 1px, transparent 1px 8px),
+    repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,0.5), rgba(0,0,0,0.42) 0.00085px);
+  mix-blend-mode: overlay;
+  animation: memoryNoise 0.5s steps(2, end) infinite;
+}
+
+@keyframes memoryDecayBase {
+  0%, 100% { filter: contrast(1.05) saturate(0.9) brightness(0.98); }
+  38% { filter: contrast(1.65) saturate(0.38) brightness(0.82); }
+  68% { filter: contrast(0.84) saturate(1.4) brightness(1.1); }
+}
+
+@keyframes memoryDecayA {
+  0%, 100% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translateX(0); }
+  18% { clip-path: inset(10% 0 64% 0); opacity: 0.38; transform: translateX(12px); }
+  42% { clip-path: inset(44% 0 38% 0); opacity: 0.5; transform: translateX(-18px); }
+  72% { clip-path: inset(72% 0 10% 0); opacity: 0.34; transform: translateX(8px); }
+}
+
+@keyframes memoryDecayB {
+  0%, 100% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translateX(0); }
+  26% { clip-path: inset(26% 0 52% 0); opacity: 0.42; transform: translateX(-10px); }
+  66% { clip-path: inset(60% 0 18% 0); opacity: 0.35; transform: translateX(16px); }
+}
+
+@keyframes memoryDecayTear {
+  0%, 100% { background-position: 0 18%, 0 51%; opacity: 0.08; }
+  28% { background-position: 20px 24%, -18px 64%; opacity: 0.46; }
+  58% { background-position: -24px 42%, 14px 30%; opacity: 0.32; }
+}
+
+@keyframes memoryNoise {
+  0%, 100% { background-position: 0 0, 0 0; opacity: 0.12; }
+  50% { background-position: 6px 0, 18px 22px; opacity: 0.4; }
+}
+
+#modalImageShell.trackingError .modalTearLayer{
+  background:
+    linear-gradient(180deg, transparent 0 12%, rgba(255,255,255,0.55) 12% 17%, transparent 17% 100%),
+    linear-gradient(180deg, transparent 0 64%, rgba(0,0,0,0.34) 64% 70%, transparent 70% 100%),
+    repeating-linear-gradient(180deg, rgba(255,255,255,0.12) 0 1px, transparent 1px 6px);
+  mix-blend-mode: overlay;
+  animation: trackingError 1.45s steps(5, end) infinite;
+}
+
+@keyframes trackingError {
+  0%, 100% { transform: translateY(-25%); opacity: 0.18; }
+  25% { transform: translateY(4%); opacity: 0.58; }
+  50% { transform: translateY(36%); opacity: 0.32; }
+  75% { transform: translateY(68%); opacity: 0.44; }
+}
+
+#modalImageShell.datamoshBlocks #modalImage{
+  animation: datamoshBase 2s steps(6, end) infinite;
+}
+
+#modalImageShell.datamoshBlocks .modalGlitchLayer.layerA,
+#modalImageShell.datamoshBlocks .modalGlitchLayer.layerB{
+  filter: contrast(1.7) saturate(0.7);
+  mix-blend-mode: hard-light;
+}
+
+#modalImageShell.datamoshBlocks .modalGlitchLayer.layerA{
+  animation: moshA 2s steps(7, end) infinite;
+}
+
+#modalImageShell.datamoshBlocks .modalGlitchLayer.layerB{
+  animation: moshB 1.4s steps(5, end) infinite;
+}
+
+#modalImageShell.datamoshBlocks .modalTearLayer{
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.28), rgba(255,255,255,0.28)) 12% 18% / 34% 15% no-repeat,
+    linear-gradient(90deg, rgba(0,0,0,0.36), rgba(0,0,0,0.36)) 62% 40% / 28% 22% no-repeat,
+    linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,255,255,0.22)) 28% 72% / 52% 11% no-repeat;
+  mix-blend-mode: difference;
+  animation: datamoshBlocks 2s steps(7, end) infinite;
+}
+
+#modalImageShell.datamoshBlocks .modalNoiseLayer{
+  background: repeating-linear-gradient(180deg, rgba(255,255,255,0.18) 0 1px, transparent 1px 6px);
+  mix-blend-mode: overlay;
+  animation: datamoshLines 0.9s steps(3, end) infinite;
+}
+
+@keyframes datamoshBase {
+  0%, 100% { filter: contrast(1.04) saturate(1); }
+  30% { filter: contrast(1.5) saturate(0.75); }
+  60% { filter: contrast(0.9) saturate(1.4); }
+}
+
+@keyframes moshA {
+  0%, 100% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translateX(0); }
+  15% { clip-path: inset(10% 0 70% 0); opacity: 0.55; transform: translateX(18px); }
+  45% { clip-path: inset(35% 0 36% 0); opacity: 0.42; transform: translateX(-24px); }
+  75% { clip-path: inset(70% 0 6% 0); opacity: 0.48; transform: translateX(13px); }
+}
+
+@keyframes moshB {
+  0%, 100% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translateX(0); }
+  25% { clip-path: inset(22% 0 63% 0); opacity: 0.44; transform: translateX(-20px); }
+  55% { clip-path: inset(58% 0 24% 0); opacity: 0.5; transform: translateX(28px); }
+}
+
+@keyframes datamoshBlocks {
+  0%, 100% { background-position: 12% 18%, 62% 40%, 28% 72%; opacity: 0.14; }
+  20% { background-position: 42% 14%, 14% 42%, 54% 76%; opacity: 0.46; }
+  45% { background-position: 22% 46%, 68% 24%, 8% 58%; opacity: 0.3; }
+  70% { background-position: 64% 62%, 24% 68%, 38% 18%; opacity: 0.52; }
+}
+
+@keyframes datamoshLines {
+  0%, 100% { transform: translateY(0); opacity: 0.18; }
+  50% { transform: translateY(11px); opacity: 0.36; }
+}
+
+#modalImageShell.staticPulse .modalNoiseLayer{
+  background:
+    repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,0.9), rgba(0,0,0,0.62) 0.00085px),
+    repeating-conic-gradient(rgba(255,255,255,0.32), rgba(0,0,0,0.4) 0.00085turn);
+  background-size: 100% 100%, 78% 81%;
+  mix-blend-mode: overlay;
+  animation: staticPulse 0.7s steps(3, end) infinite;
+}
+
+@keyframes staticPulse {
+  0%, 100% { background-size: 100% 100%, 78% 81%; opacity: 0.2; }
+  35% { background-size: 132% 140%, 48% 53%; opacity: 0.68; }
+  65% { background-size: 86% 93%, 105% 100%; opacity: 0.34; }
+}
+
+#modalImageShell.crtDamage #modalImage{
+  box-shadow:
+    4px 0 0 rgba(255, 60, 78, 0.28),
+    -4px 0 0 rgba(0, 217, 255, 0.26);
+  animation: crtDamageBase 1.8s steps(4, end) infinite;
+}
+
+#modalImageShell.crtDamage .modalNoiseLayer{
+  background:
+    repeating-linear-gradient(180deg, transparent 0 2px, rgba(0,0,0,0.46) 2px 4px),
+    repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,0.5), rgba(0,0,0,0.25) 0.00085px);
+  mix-blend-mode: overlay;
+  animation: scanlineNoise 0.16s steps(2, end) infinite;
+}
+
+@keyframes crtDamageBase {
+  0%, 100% { filter: contrast(1.1) saturate(0.95); transform: translateX(0); }
+  40% { filter: contrast(1.3) saturate(1.15); transform: translateX(1px); }
+  58% { filter: contrast(0.95) saturate(0.78); transform: translateX(-2px); }
+}
+
+@keyframes scanlineNoise {
+  0%, 100% { background-position: 0 0, 0 0; opacity: 0.34; }
+  50% { background-position: 0 3px, 17px 11px; opacity: 0.5; }
 }
 
 #modalNewTabLink{

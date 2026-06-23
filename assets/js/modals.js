@@ -1,10 +1,59 @@
 $(document).ready(function() {
-	var scrollWidth = window.innerWidth-$(document).width();
 	var modalLoadToken = 0;
+	var modalBodyState = null;
+	var modalLoadingEffects = [
+		'memoryDecay',
+		'trackingError',
+		'datamoshBlocks',
+		'staticPulse',
+		'crtDamage'
+	];
+
+	function chooseModalLoadingEffect() {
+		return modalLoadingEffects[Math.floor(Math.random() * modalLoadingEffects.length)];
+	}
+
+	function clearModalLoadingEffect() {
+		$('#modalImageShell')
+			.removeClass('loadingFullImage ' + modalLoadingEffects.join(' '))
+			.css('--modal-placeholder-src', '');
+	}
+
+	function setModalPlaceholderSource(src) {
+		document.getElementById('modalImageShell').style.setProperty(
+			'--modal-placeholder-src',
+			'url("' + src.replace(/"/g, '\\"') + '")'
+		);
+	}
 
 	$(".clickToModal").on("click", function() {
 		var previewSrc = $(this).attr("src");
 		var pixelSrc = $(this).attr("pixelSrc") || previewSrc;
+		var intrinsicWidth = parseFloat($(this).attr("width")) || this.naturalWidth;
+		var intrinsicHeight = parseFloat($(this).attr("height")) || this.naturalHeight;
+
+		if(intrinsicWidth && intrinsicHeight){
+			var maxModalWidth = window.innerWidth * 0.9;
+			var maxModalHeight = window.innerHeight * 0.87;
+			var aspect = intrinsicWidth / intrinsicHeight;
+			var displayWidth = maxModalWidth;
+			var displayHeight = displayWidth / aspect;
+
+			if(displayHeight > maxModalHeight){
+				displayHeight = maxModalHeight;
+				displayWidth = displayHeight * aspect;
+			}
+
+			$('#modalImageShell').css({
+				width: displayWidth,
+				height: displayHeight
+			});
+		}else{
+			$('#modalImageShell').css({
+				width: '',
+				height: ''
+			});
+		}
 
 		if($(this).hasClass('photoImg')){
 			var imgSrc = $(this).attr("fullSrc");
@@ -16,12 +65,16 @@ $(document).ready(function() {
 		var loadToken = modalLoadToken;
 
 		if(previewSrc && previewSrc != imgSrc){
+			clearModalLoadingEffect();
+			setModalPlaceholderSource(pixelSrc);
+			$('#modalImageShell').addClass('loadingFullImage ' + chooseModalLoadingEffect());
+
 			$('#modalImage')
-				.addClass('loadingFullImage')
 				.off('error.pixelPlaceholder')
 				.one('error.pixelPlaceholder', function() {
 					if(loadToken == modalLoadToken && pixelSrc != previewSrc){
 						$(this).attr('src', previewSrc);
+						setModalPlaceholderSource(previewSrc);
 					}
 				})
 				.attr('src', pixelSrc);
@@ -29,8 +82,8 @@ $(document).ready(function() {
 			var swapFullImage = function() {
 				if(loadToken != modalLoadToken) return;
 				$('#modalImage')
-					.attr('src', imgSrc)
-					.removeClass('loadingFullImage');
+					.attr('src', imgSrc);
+				clearModalLoadingEffect();
 			};
 
 			var fullImage = new Image();
@@ -43,15 +96,29 @@ $(document).ready(function() {
 				fullImage.src = imgSrc;
 			}
 		}else{
+			clearModalLoadingEffect();
 			$('#modalImage')
-				.removeClass('loadingFullImage')
 				.off('error.pixelPlaceholder')
 				.attr('src', imgSrc);
 		}
 
 	   	$('#modalNewTabLink').attr('href', imgSrc);
-	   	$('body').css('overflow', 'hidden');
-	   	$('body').css('padding-right','+='+scrollWidth);
+
+		if(!modalBodyState){
+			var currentPaddingRight = parseFloat($('body').css('padding-right')) || 0;
+			var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+			modalBodyState = {
+				overflow: $('body').css('overflow'),
+				paddingRight: $('body').css('padding-right')
+			};
+
+			$('body').css({
+				overflow: 'hidden',
+				paddingRight: currentPaddingRight + scrollbarWidth
+			});
+		}
+
 		$('#modalBackdrop').css('display','flex');
 	});
 
@@ -60,10 +127,15 @@ $(document).ready(function() {
 			$("#modalBackdrop").css('display','none')
 			modalLoadToken += 1;
 			$('#modalImage')
-				.removeClass('loadingFullImage')
 				.off('error.pixelPlaceholder');
-			$('body').css('padding-right','-='+scrollWidth)
-			$('body').css('overflow', 'auto');
+			clearModalLoadingEffect();
+			if(modalBodyState){
+				$('body').css({
+					overflow: modalBodyState.overflow,
+					paddingRight: modalBodyState.paddingRight
+				});
+				modalBodyState = null;
+			}
 		}
 	});
 
