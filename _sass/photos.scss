@@ -103,17 +103,16 @@
   position: relative;
   overflow: hidden;
   background-color: #f3f3f3;
-  background-image: var(--placeholder-src);
   background-size: cover;
   background-position: center;
-  image-rendering: crisp-edges;
-  image-rendering: pixelated;
+  image-rendering: auto;
   margin: 0 !important; /* We use !important to avoid gaps in some environments. */
   padding: 0 !important; 
     }
 
     .photo.loadingPreview{
         isolation: isolate;
+        background-image: var(--placeholder-src);
         image-rendering: crisp-edges;
         image-rendering: pixelated;
 

@@ -52,6 +52,15 @@ $(document).ready(function() {
 
 			function clearPreviewLoadingState() {
 				photo.removeClass('loadingPreview ' + loadingEffects.join(' '));
+
+				photo.css('background-image', 'none');
+				image.style.imageRendering = 'auto';
+
+				// Force Chromium to repaint the decoded image over the placeholder layer.
+				var previousDisplay = image.style.display;
+				image.style.display = 'none';
+				void image.offsetHeight;
+				image.style.display = previousDisplay;
 			}
 
 			function clearAfterDecode() {
