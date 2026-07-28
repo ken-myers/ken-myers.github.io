@@ -62,7 +62,7 @@ below is a brief, non-comprehensive selection of my personal projects ranked by 
         <div class="entry">
             <div class="entryHeader">
                 <h3 class="titleHeader">{{entry.title}}</h3>
-                <h4 class="dateHeader">{{entry.date | date: "%B, %Y"}}</h4>
+                <h4 class="dateHeader">{% if entry.displayDate %}{{entry.displayDate}}{% else %}{{entry.date | date: "%B, %Y"}}{% endif %}</h4>
             </div>
 
             {% if entry.links %}
