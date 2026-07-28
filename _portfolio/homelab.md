@@ -3,6 +3,7 @@ title: Homelab
 imgName: homelab.webp
 dingbat: homelab-dingbat.svg
 date: "2026-07-01"
+displayDate: "Since 2023"
 priority: 1
 ---
 
