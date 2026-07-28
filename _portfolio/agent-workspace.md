@@ -1,5 +1,5 @@
 ---
-title: My Slack Full of AI Agents
+title: AI Agent Platform
 imgName: agent-workspace.png
 dingbat: agent-workspace-dingbat.svg
 date: "2026-07-01"
